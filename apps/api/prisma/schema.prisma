@@ -10,6 +10,78 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model EventOrganizer {
+  eo_id      Int     @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String  @unique
+  password   String
+  Event      Event[]
+}
+
+model Participant {
+  participant_id Int           @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  email          String        @unique
+  password       String
+  point_balance  Int
+  point_exp      DateTime
+  referral_code  String?
+  Review         Review[]
+  Transaction    Transaction[]
+}
+
+model EventCategory {
+  id            Int     @id @default(autoincrement())
+  category_name String
+  Event         Event[]
+}
+
+model Event {
+  event_id        Int              @id @default(autoincrement())
+  eo_id           Int
+  organizer       EventOrganizer   @relation(fields: [eo_id], references: [eo_id])
+  event_name      String
+  price           Decimal
+  date            DateTime
+  category_id     Int
+  category        EventCategory    @relation(fields: [category_id], references: [id])
+  EventStatistic  EventStatistic[]
+  location        String
+  description     String
+  available_seat  Int
+  ticket_types    String
+  thumbnails_path String
+  Review          Review[]
+  Transaction     Transaction[]
+}
+
+model EventStatistic {
+  id            Int     @id @default(autoincrement())
+  event_id      Int
+  event         Event   @relation(fields: [event_id], references: [event_id])
+  ticket_sold   Int
+  total_revenue Decimal
+}
+
+model Review {
+  id             Int         @id @default(autoincrement())
+  event_id       Int
+  event          Event       @relation(fields: [event_id], references: [event_id])
+  participant_id Int
+  participant    Participant @relation(fields: [participant_id], references: [participant_id])
+  rating         Int
+  comment        String
+  created_at     DateTime
+}
+
 model Transaction {
-  id Int @id @default(autoincrement())
+  transaction_id Int         @id @default(autoincrement())
+  participant_id Int
+  participant    Participant @relation(fields: [participant_id], references: [participant_id])
+  event_id       Int
+  event          Event       @relation(fields: [event_id], references: [event_id])
+  purchase_date  DateTime
+  price          Int
 }
