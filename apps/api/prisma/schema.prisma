@@ -25,11 +25,16 @@ model Participant {
   last_name      String
   email          String        @unique
   password       String
-  point_balance  Int
+  point_balance  Int           @default(0)
   point_exp      DateTime
+  point_updated  DateTime      @updatedAt
   referral_code  String?
+  Referral       Referral[]    @relation("Referrer")
+  ReferredBy     Referral[]    @relation("Referred")
   Review         Review[]
   Transaction    Transaction[]
+
+
 }
 
 model EventCategory {
@@ -65,6 +70,18 @@ model EventStatistic {
   total_revenue Decimal
 }
 
+model Referral {
+  id              Int          @id @default(autoincrement())
+  referrer_id     Int
+  referrer        Participant  @relation("Referrer", fields: [referrer_id], references: [participant_id])
+  referred_id     Int
+  referred        Participant  @relation("Referred", fields: [referred_id], references: [participant_id])
+  created_at      DateTime     @default(now())
+  expires_at      DateTime
+}
+
+
+
 model Review {
   id             Int         @id @default(autoincrement())
   event_id       Int
@@ -73,7 +90,7 @@ model Review {
   participant    Participant @relation(fields: [participant_id], references: [participant_id])
   rating         Int
   comment        String
-  created_at     DateTime
+  created_at     DateTime    @default(now())
 }
 
 model Transaction {
@@ -82,6 +99,9 @@ model Transaction {
   participant    Participant @relation(fields: [participant_id], references: [participant_id])
   event_id       Int
   event          Event       @relation(fields: [event_id], references: [event_id])
-  purchase_date  DateTime
-  price          Int
+  purchase_date  DateTime    @default(now())
+  base_price     Decimal
+  discount_used  Decimal?
+  point_used     Int
+  final_price    Decimal
 }
