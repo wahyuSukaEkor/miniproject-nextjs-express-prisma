@@ -5,5 +5,6 @@ export default function Home() {
   return <>
 <HeroSection/>
 <FestivalSection/>
+<p>Uwu</p>
 </>;
 }
