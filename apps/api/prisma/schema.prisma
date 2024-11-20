@@ -11,12 +11,13 @@ datasource db {
 }
 
 model EventOrganizer {
-  eo_id      Int     @id @default(autoincrement())
-  first_name String
-  last_name  String
-  email      String  @unique
-  password   String
-  Event      Event[]
+  eo_id       Int           @id @default(autoincrement())
+  first_name  String
+  last_name   String
+  email       String        @unique
+  password    String
+  event       Event[]
+  voucher     Voucher[]
 }
 
 model Participant {
@@ -33,8 +34,13 @@ model Participant {
   ReferredBy     Referral[]    @relation("Referred")
   Review         Review[]
   Transaction    Transaction[]
+  Voucher        Voucher[]
+}
 
-
+model Location {
+  id    Int     @id @default(autoincrement())
+  name  String
+  event Event[]
 }
 
 model EventCategory {
@@ -52,14 +58,16 @@ model Event {
   date            DateTime
   category_id     Int
   category        EventCategory    @relation(fields: [category_id], references: [id])
+  location_id     Int
+  location        Location         @relation(fields: [location_id], references: [id])
   EventStatistic  EventStatistic[]
-  location        String
   description     String
   available_seat  Int
   ticket_types    String
   thumbnails_path String
   Review          Review[]
   Transaction     Transaction[]
+  Voucher         Voucher[]
 }
 
 model EventStatistic {
@@ -71,16 +79,14 @@ model EventStatistic {
 }
 
 model Referral {
-  id              Int          @id @default(autoincrement())
-  referrer_id     Int
-  referrer        Participant  @relation("Referrer", fields: [referrer_id], references: [participant_id])
-  referred_id     Int
-  referred        Participant  @relation("Referred", fields: [referred_id], references: [participant_id])
-  created_at      DateTime     @default(now())
-  expires_at      DateTime
+  id          Int         @id @default(autoincrement())
+  referrer_id Int
+  referrer    Participant @relation("Referrer", fields: [referrer_id], references: [participant_id])
+  referred_id Int
+  referred    Participant @relation("Referred", fields: [referred_id], references: [participant_id])
+  created_at  DateTime    @default(now())
+  expires_at  DateTime
 }
-
-
 
 model Review {
   id             Int         @id @default(autoincrement())
@@ -89,19 +95,37 @@ model Review {
   participant_id Int
   participant    Participant @relation(fields: [participant_id], references: [participant_id])
   rating         Int
-  comment        String
+  comment        String?     @db.Text
   created_at     DateTime    @default(now())
 }
 
 model Transaction {
-  transaction_id Int         @id @default(autoincrement())
-  participant_id Int
-  participant    Participant @relation(fields: [participant_id], references: [participant_id])
-  event_id       Int
-  event          Event       @relation(fields: [event_id], references: [event_id])
-  purchase_date  DateTime    @default(now())
-  base_price     Decimal
-  discount_used  Decimal?
-  point_used     Int
-  final_price    Decimal
+  transaction_id      Int             @id @default(autoincrement())
+  participant_id      Int
+  participant         Participant     @relation(fields: [participant_id], references: [participant_id])
+  event_id            Int
+  event               Event           @relation(fields: [event_id], references: [event_id])
+  purchase_date       DateTime        @default(now())
+  base_price          Decimal
+  discount_used       Decimal?
+  point_used          Int?
+  final_price         Decimal
+  payment_path        String?
+}
+
+model Voucher {
+  id             Int             @id @default(autoincrement())
+  name           String
+  discount       Int
+  expiry_date    DateTime?
+  max_usage      Int
+  usage          Int             @default(0)
+  event_id       Int?
+  event          Event?          @relation(fields: [event_id], references: [event_id])
+  participant_id Int?
+  participant    Participant?    @relation(fields: [participant_id], references: [participant_id])
+  eo_id          Int?
+  organizer      EventOrganizer? @relation(fields: [eo_id], references: [eo_id])
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @updatedAt
 }
