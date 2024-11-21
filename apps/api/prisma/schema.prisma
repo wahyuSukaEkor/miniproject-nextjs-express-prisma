@@ -10,32 +10,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model EventOrganizer {
-  eo_id       Int           @id @default(autoincrement())
-  first_name  String
-  last_name   String
-  email       String        @unique
-  password    String
-  event       Event[]
-  voucher     Voucher[]
+model User {
+  user_id      Int           @id @default(autoincrement())
+  username     String        @unique
+  email        String        @unique
+  password     String
+  referralCode String?       @unique
+  isAdmin      Boolean
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  point        Point?
+  events       Event[]
+  Review       Review[]
+  vouchers     Voucher[]
+  transactions Transaction[]
+  referrals    Referral[]    @relation("Referrer")
+  referredBy   Referral[]    @relation("Referred")
 }
 
-model Participant {
-  participant_id Int           @id @default(autoincrement())
-  first_name     String
-  last_name      String
-  email          String        @unique
-  password       String
-  point_balance  Int           @default(0)
-  point_exp      DateTime
-  point_updated  DateTime      @updatedAt
-  referral_code  String?
-  Referral       Referral[]    @relation("Referrer")
-  ReferredBy     Referral[]    @relation("Referred")
-  Review         Review[]
-  Transaction    Transaction[]
-  Voucher        Voucher[]
-}
+
 
 model Location {
   id    Int     @id @default(autoincrement())
@@ -51,8 +44,8 @@ model EventCategory {
 
 model Event {
   event_id        Int              @id @default(autoincrement())
-  eo_id           Int
-  organizer       EventOrganizer   @relation(fields: [eo_id], references: [eo_id])
+  organizer_id    Int
+  organizer       User   @relation(fields: [organizer_id], references: [user_id])
   event_name      String
   price           Decimal
   date            DateTime
@@ -81,9 +74,9 @@ model EventStatistic {
 model Referral {
   id          Int         @id @default(autoincrement())
   referrer_id Int
-  referrer    Participant @relation("Referrer", fields: [referrer_id], references: [participant_id])
+  referrer    User        @relation("Referrer", fields: [referrer_id], references: [user_id])
   referred_id Int
-  referred    Participant @relation("Referred", fields: [referred_id], references: [participant_id])
+  referred    User        @relation("Referred", fields: [referred_id], references: [user_id])
   created_at  DateTime    @default(now())
   expires_at  DateTime
 }
@@ -92,8 +85,8 @@ model Review {
   id             Int         @id @default(autoincrement())
   event_id       Int
   event          Event       @relation(fields: [event_id], references: [event_id])
-  participant_id Int
-  participant    Participant @relation(fields: [participant_id], references: [participant_id])
+  user_id Int
+  user    User  @relation(fields: [user_id], references: [user_id])
   rating         Int
   comment        String?     @db.Text
   created_at     DateTime    @default(now())
@@ -101,8 +94,8 @@ model Review {
 
 model Transaction {
   transaction_id      Int             @id @default(autoincrement())
-  participant_id      Int
-  participant         Participant     @relation(fields: [participant_id], references: [participant_id])
+  user_id      Int
+  user         User     @relation(fields: [user_id], references: [user_id])
   event_id            Int
   event               Event           @relation(fields: [event_id], references: [event_id])
   purchase_date       DateTime        @default(now())
@@ -122,10 +115,19 @@ model Voucher {
   usage          Int             @default(0)
   event_id       Int?
   event          Event?          @relation(fields: [event_id], references: [event_id])
-  participant_id Int?
-  participant    Participant?    @relation(fields: [participant_id], references: [participant_id])
-  eo_id          Int?
-  organizer      EventOrganizer? @relation(fields: [eo_id], references: [eo_id])
+  user_id        Int?
+  user           User?           @relation(fields: [user_id], references: [user_id])
   created_at     DateTime        @default(now())
   updated_at     DateTime        @updatedAt
+}
+
+model Point {
+  id         Int      @id @default(autoincrement())
+  balance    Int
+  expiryDate DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     Int      @unique
+  user       User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
 }
