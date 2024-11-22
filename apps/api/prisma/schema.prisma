@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+<<<<<<< Updated upstream
 model EventOrganizer {
   eo_id      Int     @id @default(autoincrement())
   first_name String
@@ -17,6 +18,24 @@ model EventOrganizer {
   email      String  @unique
   password   String
   Event      Event[]
+=======
+model User {
+  user_id       Int           @id @default(autoincrement())
+  username      String        @unique
+  email         String        @unique
+  password      String
+  referralCode  String?       @unique
+  isAdmin       Boolean
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  point         Point?
+  Event         Event[]
+  Review        Review[]
+  Transaction   Transaction[]
+  Voucher       Voucher[]
+
+  @@map("users")
+>>>>>>> Stashed changes
 }
 
 model Participant {
