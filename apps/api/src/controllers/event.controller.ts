@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-// import { EventQuery, EventRequest } from '@/types/event.type';
-// import { EventService } from '@/services/event.service';
+import { EventQuery, EventRequest } from '@/types/event.type';
+import { EventService } from '@/services/event.service';
 export class EventController {
   public async getEvents(req: Request, res: Response, next: NextFunction) {
     try {
