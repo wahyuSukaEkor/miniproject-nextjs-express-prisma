@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  user_id       Int           @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   username      String        @unique
   email         String        @unique
   password      String
@@ -31,7 +31,7 @@ model User {
 model Point {
   id           Int      @id @default(autoincrement())
   user_id      Int      @unique
-  user         User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   total_point  Int
   expired_date DateTime
   created_at   DateTime @default(now())
@@ -41,11 +41,11 @@ model Point {
 }
 
 model Event {
-  event_id        Int      @id @default(autoincrement())
+  id              Int           @id @default(autoincrement())
   user_id         Int
-  user            User     @relation(fields: [user_id], references: [user_id])
+  user            User          @relation(fields: [user_id], references: [id])
   event_name      String
-  price           Decimal
+  price           Int
   description     String
   start_date      DateTime
   end_date        DateTime
@@ -84,10 +84,10 @@ model EventCategory {
 
 model Review {
   id         Int      @id @default(autoincrement())
-  event_id   Int
-  event      Event    @relation(fields: [event_id], references: [event_id])
+  eventId    Int
+  event      Event    @relation(fields: [eventId], references: [id])
   user_id    Int
-  user       User     @relation(fields: [user_id], references: [user_id])
+  user       User     @relation(fields: [user_id], references: [id])
   rating     Int
   comment    String?  @db.Text
   created_at DateTime @default(now())
@@ -96,22 +96,23 @@ model Review {
 }
 
 model Transaction {
-  transaction_id   Int           @id @default(autoincrement())
-  user_id          Int
-  user             User          @relation(fields: [user_id], references: [user_id])
-  event_id         Int
-  event            Event         @relation(fields: [event_id], references: [event_id])
-  payment_status   PaymentStatus
-  base_price       Int
-  quantity         Int
-  total_price      Int
-  discounted_price Int?
-  point_used       Int?
-  voucer_id        Int?
-  voucer           Voucher?      @relation(fields: [voucer_id], references: [voucer_id])
-  payment_path     String?
-  created_at       DateTime      @default(now())
-  updated_at       DateTime      @updatedAt
+  id                Int                 @id @default(autoincrement())
+  user_id           Int
+  user              User                @relation(fields: [user_id], references: [id])
+  eventId           Int
+  event             Event               @relation(fields: [eventId], references: [id])
+  payment_status    PaymentStatus
+  base_price        Int
+  quantity          Int
+  total_price       Int
+  discounted_price  Int?
+  point_used        Int?
+  voucer_id         Int?
+  voucer            Voucher?            @relation(fields: [voucer_id], references: [id])
+  payment_path      String?
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  TransactionDetail TransactionDetail[]
 
   @@map("transactions")
 }
@@ -124,19 +125,28 @@ enum PaymentStatus {
 }
 
 model Voucher {
-  voucer_id    Int           @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   name         String
   discount     Int
   expired_date DateTime?
   max_usage    Int
   usage        Int           @default(0)
-  event_id     Int?
-  event        Event?        @relation(fields: [event_id], references: [event_id])
+  eventId      Int?
+  event        Event?        @relation(fields: [eventId], references: [id])
   user_id      Int?
-  user         User?         @relation(fields: [user_id], references: [user_id])
+  user         User?         @relation(fields: [user_id], references: [id])
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
   Transaction  Transaction[]
 
   @@map("vouchers")
+}
+
+model TransactionDetail {
+  id             Int         @id @default(autoincrement())
+  transaction_id Int
+  transaction    Transaction @relation(fields: [transaction_id], references: [id])
+  ticket_code    String
+
+  @@map("transaction_details")
 }
