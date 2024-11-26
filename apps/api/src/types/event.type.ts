@@ -7,7 +7,7 @@ export type EventQuery = {
   location_id?: string | number;
   location?: string;
   event_name?: string;
-  event_id?: number;
+  id?: number;
   start_date?: Date;
   end_date?: Date;
 };

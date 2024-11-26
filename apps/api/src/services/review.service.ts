@@ -1,4 +1,3 @@
-import { EventRepository } from '@/repositories/event.repository';
 import { ReviewRepository } from '@/repositories/review.repository';
 import { CreateFeedback } from '@/types/review.type';
 import { ErrorResponse } from '@/utils/error';

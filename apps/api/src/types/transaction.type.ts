@@ -14,17 +14,15 @@ export type TransactionStatus = {
 };
 
 export type TransactionRequest = {
-  event_id: number;
-  seatRequests: number;
-  voucher_id?: number;
-  redeemedPoints?: number;
   eventId: number;
-  voucherId?: number
+  seatRequests: number;
+  voucer_id?: number;
+  point_used?: number;
 };
 
 export type TotalSaleResponse = {
   date: Date;
-  base_price: number;
+  total_price: number;
   discounted_price: number | null;
 };
 

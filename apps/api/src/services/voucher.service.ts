@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import prisma from '@/prisma';
 import { EventRepository } from '@/repositories/event.repository';
 import { VoucherRepository } from '@/repositories/voucher.repository';
 import { CreateVoucher } from '@/types/voucher.type';
@@ -9,12 +9,12 @@ import { VoucherValidation } from '@/validations/voucher.validation';
 
 export class VoucherService {
   static async createVoucher(id: number, body: CreateVoucher) {
-    const { discount, event_id, max_usage, name } = Validation.validate(
+    const { discount, eventId, max_usage, name } = Validation.validate(
       VoucherValidation.CREATE,
       body,
     );
 
-    const event = await EventRepository.getEventById(event_id);
+    const event = await EventRepository.getEventById(eventId);
     console.log('data userId :', event);
 
     // INI PAKE PENGULANGAN, IN IUNDIFINED SOALNYA
@@ -41,7 +41,7 @@ export class VoucherService {
     }
     await VoucherRepository.createVoucher(id, {
       discount,
-      event_id,
+      eventId,
       max_usage,
       name,
     });

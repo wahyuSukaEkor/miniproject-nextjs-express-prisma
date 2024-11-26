@@ -6,7 +6,7 @@ export class VoucherValidation {
       invalid_type_error: 'Name must be a String!',
       required_error: 'Name must be required!',
     }).nonempty({ message: 'Name cannot be empty!' }),
-    maxUsage: z
+    max_usage: z
       .number({
         invalid_type_error: 'Max Usage must be a Number!',
         required_error: 'Max Usage must be required!',
