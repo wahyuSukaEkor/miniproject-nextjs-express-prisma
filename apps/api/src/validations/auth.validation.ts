@@ -25,7 +25,7 @@ export class AuthValidation {
         required_error: 'isAdmin is required!',
         invalid_type_error: 'isAdmin must be a boolean value!',
       }),
-      referralCode: z
+      referral_code: z
         .string({
           required_error: 'Referral Code is required!',
           invalid_type_error: 'Referral Code must be a string!',
@@ -35,12 +35,12 @@ export class AuthValidation {
     })
     .refine(
       (data) => {
-        if (data.isAdmin && data.referralCode !== undefined) return false;
+        if (data.isAdmin && data.referral_code !== undefined) return false;
         return true;
       },
       {
         message: 'Admin cannot provide a referral code!',
-        path: ['referralCode'],
+        path: ['referral_code'],
       },
     );
 
