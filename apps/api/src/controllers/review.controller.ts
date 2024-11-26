@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateFeedback } from '@/types/review.type';
 import { ReviewService } from '@/services/review.service';
-
 export class ReviewController {
   public async createFeedback(req: Request, res: Response, next: NextFunction) {
     try {

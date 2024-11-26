@@ -1,6 +1,6 @@
 import { EventRepository } from '@/repositories/event.repository';
 import { EventQuery, EventRequest } from '@/types/event.type';
-// import { ErrorResponse } from '@/utils/error';
+import { ErrorResponse } from '@/utils/error';
 import {
   responseDataWithPagination,
   responseWithData,
@@ -92,11 +92,11 @@ export class EventService {
 
     const event = await EventRepository.getEventById(Number(newEventId));
 
-    // if (!event) throw new ErrorResponse(404, 'Event not found!');
+    if (!event) throw new ErrorResponse(404, 'Event not found!');
 
-    // if (event.userId !== id) {
-    //   throw new ErrorResponse(401, 'This event is not yours!');
-    // }
+    if (event.user_id !== id) {
+      throw new ErrorResponse(401, 'This event is not yours!');
+    }
 
     const response = await EventRepository.updateEvent(
       id,
@@ -113,15 +113,15 @@ export class EventService {
 
     const event = await EventRepository.getEventById(Number(newEventId));
 
-    // if (!event) throw new ErrorResponse(404, 'Event not found!');
+    if (!event) throw new ErrorResponse(404, 'Event not found!');
 
-    // if (event.userId !== id) {
-    //   throw new ErrorResponse(401, 'This event is not yours!');
-    // }
+    if (event.user_id !== id) {
+      throw new ErrorResponse(401, 'This event is not yours!');
+    }
 
-    // if (event.availableSeats !== event.maxCapacity) {
-    //   throw new ErrorResponse(400, 'Event is not empty!');
-    // }
+    if (event.available_seats !== event.max_capacity) {
+      throw new ErrorResponse(400, 'Event is not empty!');
+    }
 
     await EventRepository.deleteEvent(Number(newEventId));
     return responseWithoutData(200, true, 'Delete event successfully');

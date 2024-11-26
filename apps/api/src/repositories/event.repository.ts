@@ -11,7 +11,7 @@ export class EventRepository {
       start_date: query.start_date
         ? new Date(query.start_date).toISOString()
         : undefined,
-      endDate: query.end_date
+      end_date: query.end_date
         ? new Date(query.end_date).toISOString()
         : undefined,
     };
@@ -54,7 +54,7 @@ export class EventRepository {
         event_name: filter.event_name ? { contains: filter.event_name } : undefined,
         category_id: filter.category_id,
         location_id: filter.location_id,
-        ...(filter.start_date || filter.endDate
+        ...(filter.start_date || filter.end_date
           ? {
               start_date: {
                 ...(filter.start_date && { gte: filter.start_date }),
@@ -80,7 +80,7 @@ export class EventRepository {
         location_id: filter.location_id,
       },
       include: {
-        category: { select: { id: true } },
+        category: { select: { category_name: true } },
         location: true,
       },
       skip: (Number(query.page) - 1) * Number(query.limit), // Lewati data sejumlah offset
@@ -105,21 +105,21 @@ export class EventRepository {
   }
 
   static async getEventByIdWithInclude(query: EventQuery) {
-    const eventId = Number(query.event_id);
+    const eventId = Number(query.id);
 
     return await prisma.event.findMany({
-      where: { event_id: eventId },
+      where: { id: eventId },
       include: { category: true, location: true, user: true },
     });
   }
 
-  static async getEventById(event_id: number) {
-    return await prisma.event.findUnique({ where: { event_id } });
+  static async getEventById(id: number) {
+    return await prisma.event.findUnique({ where: { id } });
   }
 
-  static async getEventByIdWithTransaction(event_id: number, user_id: number) {
+  static async getEventByIdWithTransaction(eventId: number, user_id: number) {
     return await prisma.event.findUnique({
-      where: { event_id: event_id },
+      where: { id: eventId },
       include: {
         Transaction: { where: { user_id }, select: { quantity: true } },
       },
@@ -127,7 +127,7 @@ export class EventRepository {
   }
 
   static async createEvent(
-    user_id: number,
+    id: number,
     request: EventRequest,
     file: Express.Multer.File,
   ) {
@@ -142,7 +142,7 @@ export class EventRepository {
         available_seats: request.max_capacity,
         start_date: new Date(request.start_date),
         end_date: new Date(request.end_date),
-        user: { connect: { user_id } },
+        user: { connect: { id } },
         location: { connect: { id: request.location_id } },
         category: { connect: { id: request.category_id } },
       },
@@ -162,7 +162,7 @@ export class EventRepository {
     const { limit, order_by, page, sort_by } = query;
 
     return await prisma.event.findUnique({
-      where: { event_id: id, Transaction: { some: { payment_status: 'success' } } },
+      where: { id, Transaction: { some: { payment_status: 'success' } } },
       include: {
         Transaction: {
           include: { user: true },
@@ -176,14 +176,14 @@ export class EventRepository {
 
   static async countEventTransactions(eventId: number) {
     return await prisma.event.findUnique({
-      where: { event_id: eventId },
+      where: { id: eventId },
       select: { _count: { select: { Transaction: true } } },
     });
   }
 
   static async getEventIncludeCategoryLocation(id: number) {
     return await prisma.event.findUnique({
-      where: { event_id: id },
+      where: { id },
       include: { category: true, location: true },
     });
   }
@@ -202,18 +202,18 @@ export class EventRepository {
     if (request.buy_limit) data['buy_limit'] = request.buy_limit;
     if (request.max_capacity) data['max_capacity'] = request.max_capacity;
     if (request.start_date) data['start_date'] = new Date(request.start_date);
-    if (request.end_date) data['endDate'] = new Date(request.end_date);
+    if (request.end_date) data['end_date'] = new Date(request.end_date);
     if (request.location_id) data['location_id'] = request.location_id;
     if (request.category_id) data['category_id'] = request.category_id;
-    if (file) data['imageURL'] = `/assets/events/${file.filename}`;
+    if (file) data['thumbnails_path'] = `/assets/events/${file.filename}`;
 
     return await prisma.event.update({
-      where: { event_id: eventId },
+      where: { id: eventId },
       data: data,
     });
   }
 
-  static async deleteEvent(event_id: number) {
-    return await prisma.event.delete({ where: { event_id } });
+  static async deleteEvent(id: number) {
+    return await prisma.event.delete({ where: { id } });
   }
 }

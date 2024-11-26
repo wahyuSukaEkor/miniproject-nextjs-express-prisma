@@ -14,9 +14,10 @@ import { join } from 'path';
 import { EventRouter } from './routers/event.router';
 import { LocationRouter } from './routers/location.router';
 import { CategoryRouter } from './routers/category.router';
-
+import { TransactionRouter } from './routers/transaction.router';
 import { VoucherRouter } from './routers/voucher.router';
 import { ReviewRouter } from './routers/review.router';
+import { UserRouter } from './routers/user.router';
 
 export default class App {
   private app: Express;
@@ -65,47 +66,42 @@ export default class App {
     const transactionRouter = new TransactionRouter();
     const voucherRouter = new VoucherRouter();
     const reviewRouter = new ReviewRouter();
+    const userRouter = new UserRouter();
 
-    
-    
-    
     //serve image
     this.app.use('/', express.static(join(__dirname, '../public')));
 
     //events
     this.app.use('/events', eventRouter.getRoutes());
-    
+
     //locations
     this.app.use('/locations', locationRouter.getRoutes());
 
     //categories
     this.app.use('/categories', categoryRouter.getRoutes());
-    
+
     //transactions
     this.app.use('/transactions', transactionRouter.getRoutes());
-    
+
     //voucer
     this.app.use('/vouchers', voucherRouter.getRoutes());
 
     //review
     this.app.use('/reviews', reviewRouter.getRoutes());
 
-
-    //event orgainizer
+    //event orgainizer or admin
 
     //user or particaipant attandee
+    this.app.use('/user', userRouter.getRoutes());
 
     //auth
 
-
     //example
-    this.app.use('/api/samples', sampleRouter.getRouter());
-    this.app.get('/api', (req: Request, res: Response) => {
+    this.app.use('/samples', sampleRouter.getRouter());
+    this.app.get('/', (req: Request, res: Response) => {
       res.send(`Hello, Purwadhika Student API!`);
     });
-
   }
-
 
   public start(): void {
     this.app.listen(PORT, () => {

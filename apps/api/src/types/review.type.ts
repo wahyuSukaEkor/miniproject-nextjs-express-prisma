@@ -1,5 +1,5 @@
-export type CreateReview = {
+export type CreateFeedback = {
   rating: number;
   comment: string;
-  event_id: number;
+  eventId: number;
 };
