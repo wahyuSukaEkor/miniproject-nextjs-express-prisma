@@ -1,5 +1,5 @@
 import { VoucherController } from '@/controllers/voucher.controller';
-// import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
+import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
 import { Router } from 'express';
 
 export class VoucherRouter {
@@ -15,14 +15,14 @@ export class VoucherRouter {
   private initializeRoutes(): void {
     this.router.post(
       '/',
-      // verifyToken,
-      // adminGuard,
+      verifyToken,
+      adminGuard,
       this.voucherController.createVoucher,
     );
 
     this.router.get(
       '/:eventId',
-      // verifyToken,
+      verifyToken,
       this.voucherController.getVoucherById,
     );
 

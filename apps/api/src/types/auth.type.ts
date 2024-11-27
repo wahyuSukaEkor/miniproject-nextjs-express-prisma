@@ -3,7 +3,7 @@ export type RegisterRequest = {
   email: string;
   password: string;
   isAdmin: boolean;
-  referralCode?: string;
+  referral_code?: string;
 };
 
 export type LoginRequest = {

@@ -1,9 +1,9 @@
 import { TransactionController } from '@/controllers/transaction.controller';
-// import {
-//   adminGuard,
-//   userGuard,
-//   verifyToken,
-// } from '@/middlewares/auth.middleware';
+import {
+  adminGuard,
+  userGuard,
+  verifyToken,
+} from '@/middlewares/auth.middleware';
 import { uploader } from '@/middlewares/uploader.middleware';
 import { Router } from 'express';
 
@@ -20,36 +20,36 @@ export class TransactionRouter {
   private initializeRoutes(): void {
     this.router.get(
       '/waiting',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       this.transactionController.getEventTransactionWaiting,
     );
 
     this.router.get(
       '/success',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       this.transactionController.getEventTransactionSuccess,
     );
 
     this.router.get(
       '/finish',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       this.transactionController.getEventTransactionSuccessByDate,
     );
 
     this.router.post(
       '/',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       this.transactionController.createTransaction,
     );
 
     this.router.patch(
       '/:transactionId',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       uploader('/transactions', 'TRANS').single('image'),
       this.transactionController.checkoutUser,
     );
