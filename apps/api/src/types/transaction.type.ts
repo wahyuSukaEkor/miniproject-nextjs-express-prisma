@@ -16,14 +16,14 @@ export type TransactionStatus = {
 export type TransactionRequest = {
   eventId: number;
   seatRequests: number;
-  voucherId?: number;
-  redeemedPoints?: number;
+  voucer_id?: number;
+  point_used?: number;
 };
 
 export type TotalSaleResponse = {
   date: Date;
-  originalAmount: number;
-  discountedAmount: number | null;
+  total_price: number;
+  discounted_price: number | null;
 };
 
 export type StatusResponse = {
