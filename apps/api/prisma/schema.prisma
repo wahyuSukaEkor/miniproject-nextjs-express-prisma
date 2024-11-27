@@ -11,123 +11,142 @@ datasource db {
 }
 
 model User {
-  user_id      Int           @id @default(autoincrement())
-  username     String        @unique
-  email        String        @unique
-  password     String
-  referralCode String?       @unique
-  isAdmin      Boolean
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  point        Point?
-  events       Event[]
-  Review       Review[]
-  vouchers     Voucher[]
-  transactions Transaction[]
-  referrals    Referral[]    @relation("Referrer")
-  referredBy   Referral[]    @relation("Referred")
+  id            Int           @id @default(autoincrement())
+  username      String        @unique
+  email         String        @unique
+  password      String
+  referral_code String?       @unique
+  isAdmin       Boolean
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  point         Point?
+  Event         Event[]
+  Review        Review[]
+  Transaction   Transaction[]
+  Voucher       Voucher[]
+
+  @@map("users")
 }
 
+model Point {
+  id           Int      @id @default(autoincrement())
+  user_id      Int      @unique
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  total_point  Int
+  expired_date DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
+  @@map("points")
+}
+
+model Event {
+  id              Int           @id @default(autoincrement())
+  user_id         Int
+  user            User          @relation(fields: [user_id], references: [id])
+  event_name      String
+  price           Int
+  description     String
+  start_date      DateTime
+  end_date        DateTime
+  available_seats Int
+  max_capacity    Int
+  buy_limit       Int
+  category_id     Int
+  category        EventCategory @relation(fields: [category_id], references: [id])
+  location_id     Int
+  location        Location      @relation(fields: [location_id], references: [id])
+  thumbnails_path String
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  Review          Review[]
+  Transaction     Transaction[]
+  Voucher         Voucher[]
+
+  @@map("events")
+}
 
 model Location {
   id    Int     @id @default(autoincrement())
   name  String
-  event Event[]
+  Event Event[]
+
+  @@map("locations")
 }
 
 model EventCategory {
   id            Int     @id @default(autoincrement())
   category_name String
   Event         Event[]
-}
 
-model Event {
-  event_id        Int              @id @default(autoincrement())
-  organizer_id    Int
-  organizer       User   @relation(fields: [organizer_id], references: [user_id])
-  event_name      String
-  price           Decimal
-  date            DateTime
-  category_id     Int
-  category        EventCategory    @relation(fields: [category_id], references: [id])
-  location_id     Int
-  location        Location         @relation(fields: [location_id], references: [id])
-  EventStatistic  EventStatistic[]
-  description     String
-  available_seat  Int
-  ticket_types    String
-  thumbnails_path String
-  Review          Review[]
-  Transaction     Transaction[]
-  Voucher         Voucher[]
-}
-
-model EventStatistic {
-  id            Int     @id @default(autoincrement())
-  event_id      Int
-  event         Event   @relation(fields: [event_id], references: [event_id])
-  ticket_sold   Int
-  total_revenue Decimal
-}
-
-model Referral {
-  id          Int         @id @default(autoincrement())
-  referrer_id Int
-  referrer    User        @relation("Referrer", fields: [referrer_id], references: [user_id])
-  referred_id Int
-  referred    User        @relation("Referred", fields: [referred_id], references: [user_id])
-  created_at  DateTime    @default(now())
-  expires_at  DateTime
+  @@map("categories")
 }
 
 model Review {
-  id             Int         @id @default(autoincrement())
-  event_id       Int
-  event          Event       @relation(fields: [event_id], references: [event_id])
-  user_id Int
-  user    User  @relation(fields: [user_id], references: [user_id])
-  rating         Int
-  comment        String?     @db.Text
-  created_at     DateTime    @default(now())
+  id         Int      @id @default(autoincrement())
+  eventId    Int
+  event      Event    @relation(fields: [eventId], references: [id])
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id])
+  rating     Int
+  comment    String?  @db.Text
+  created_at DateTime @default(now())
+
+  @@map("reviews")
 }
 
 model Transaction {
-  transaction_id      Int             @id @default(autoincrement())
-  user_id      Int
-  user         User     @relation(fields: [user_id], references: [user_id])
-  event_id            Int
-  event               Event           @relation(fields: [event_id], references: [event_id])
-  purchase_date       DateTime        @default(now())
-  base_price          Decimal
-  discount_used       Decimal?
-  point_used          Int?
-  final_price         Decimal
-  payment_path        String?
+  id                Int                 @id @default(autoincrement())
+  user_id           Int
+  user              User                @relation(fields: [user_id], references: [id])
+  eventId           Int
+  event             Event               @relation(fields: [eventId], references: [id])
+  payment_status    PaymentStatus
+  base_price        Int
+  quantity          Int
+  total_price       Int
+  discounted_price  Int?
+  point_used        Int?
+  voucer_id         Int?
+  voucer            Voucher?            @relation(fields: [voucer_id], references: [id])
+  payment_path      String?
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  TransactionDetail TransactionDetail[]
+
+  @@map("transactions")
+}
+
+enum PaymentStatus {
+  waiting
+  paid
+  success
+  failed
 }
 
 model Voucher {
-  id             Int             @id @default(autoincrement())
-  name           String
-  discount       Int
-  expiry_date    DateTime?
-  max_usage      Int
-  usage          Int             @default(0)
-  event_id       Int?
-  event          Event?          @relation(fields: [event_id], references: [event_id])
-  user_id        Int?
-  user           User?           @relation(fields: [user_id], references: [user_id])
-  created_at     DateTime        @default(now())
-  updated_at     DateTime        @updatedAt
+  id           Int           @id @default(autoincrement())
+  name         String
+  discount     Int
+  expired_date DateTime?
+  max_usage    Int
+  usage        Int           @default(0)
+  eventId      Int?
+  event        Event?        @relation(fields: [eventId], references: [id])
+  user_id      Int?
+  user         User?         @relation(fields: [user_id], references: [id])
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  Transaction  Transaction[]
+
+  @@map("vouchers")
 }
 
-model Point {
-  id         Int      @id @default(autoincrement())
-  balance    Int
-  expiryDate DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  userId     Int      @unique
-  user       User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+model TransactionDetail {
+  id             Int         @id @default(autoincrement())
+  transaction_id Int
+  transaction    Transaction @relation(fields: [transaction_id], references: [id])
+  ticket_code    String
 
+  @@map("transaction_details")
 }

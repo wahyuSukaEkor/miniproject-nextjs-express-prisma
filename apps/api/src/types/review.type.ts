@@ -1,5 +1,5 @@
 export type CreateFeedback = {
   rating: number;
-  message: string;
+  comment: string;
   eventId: number;
 };

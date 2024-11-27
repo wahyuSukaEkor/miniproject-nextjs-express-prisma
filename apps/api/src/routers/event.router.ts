@@ -1,6 +1,6 @@
 import { EventController } from '@/controllers/event.controller';
-// import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
-// import { uploader } from '@/middlewares/uploader.middleware';
+import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
+import { uploader } from '@/middlewares/uploader.middleware';
 import { Router } from 'express';
 
 export class EventRouter {
@@ -18,8 +18,8 @@ export class EventRouter {
 
     this.router.post(
       '/',
-      verifyToken,
-      adminGuard,
+      // verifyToken,
+      // adminGuard,
       uploader('/events', 'EVENT').single('image'),
       this.eventController.createEvent,
     );

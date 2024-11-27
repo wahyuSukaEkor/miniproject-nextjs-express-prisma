@@ -1,5 +1,5 @@
 import { ReviewController } from '@/controllers/review.controller';
-// import { adminGuard, userGuard, verifyToken } from '@/middlewares/auth.middleware';
+import { adminGuard, userGuard, verifyToken } from '@/middlewares/auth.middleware';
 import { Router } from 'express';
 
 export class ReviewRouter {
@@ -15,8 +15,8 @@ export class ReviewRouter {
   private initializeRoutes(): void {
     this.router.post(
       '/',
-      // verifyToken,
-      // userGuard,
+      verifyToken,
+      userGuard,
       this.reviewController.createFeedback,
     );
   }
