@@ -108,44 +108,44 @@ export class AuthService {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() + 3);
 
-    // await prisma.$transaction(async (tx) => {
-    //   if (!userByReferralCode.point) {
-    //     await tx.point.create({
-    //       data: {
-    //         total_point: 10000,
-    //         expired_date: currentDate,
-    //         user: { connect: { user_id: userByReferralCode.user_id } },
-    //       },
-    //     });
-    //   } else {
-    //     await tx.point.update({
-    //       data: {
-    //         total_point: userByReferralCode.point.total_point + 10000,
-    //         expired_date: currentDate,
-    //       },
-    //       where: { id: userByReferralCode.point.id },
-    //     });
-    //   }
+    await prisma.$transaction(async (tx) => {
+      if (!userByReferralCode.point) {
+        await tx.point.create({
+          data: {
+            total_point: 10000,
+            expired_date: currentDate,
+            user: { connect: { user_id: userByReferralCode.user_id } },
+          },
+        });
+      } else {
+        await tx.point.update({
+          data: {
+            total_point: userByReferralCode.point.total_point + 10000,
+            expired_date: currentDate,
+          },
+          where: { id: userByReferralCode.point.id },
+        });
+      }
 
-    //   const newUser = await tx.user.create({
-    //     data: {
-    //       email: request.email,
-    //       isAdmin: request.isAdmin,
-    //       username,
-    //       password: await hashPassword(request.password),
-    //       referral_code: generateReferralCode(username.slice(0, 3)),
-    //     },
-    //   });
+      const newUser = await tx.user.create({
+        data: {
+          email: request.email,
+          isAdmin: request.isAdmin,
+          username,
+          password: await hashPassword(request.password),
+          referral_code: generateReferralCode(username.slice(0, 3)),
+        },
+      });
 
-    //   await tx.voucher.create({
-    //     data: {
-    //       discount: 10,
-    //       expired_date: currentDate,
-    //       max_usage: 1,
-    //       name: generateVoucherCode(referral_code),
-    //       user: { connect: { user_id: newUser.user_id } },
-    //     },
-    //   });
-    // });
+      await tx.voucher.create({
+        data: {
+          discount: 10,
+          expired_date: currentDate,
+          max_usage: 1,
+          name: generateVoucherCode(referral_code),
+          user: { connect: { user_id: newUser.user_id } },
+        },
+      });
+    });
   }
 }
