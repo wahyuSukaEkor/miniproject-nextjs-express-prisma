@@ -164,6 +164,7 @@ export const events = [
     locationId: 158,
     categoryId: 4,
   },
+  //test
   {
     name: 'Pesta Pora 2024: A Celebration of Diversity and Unity',
     imageURL: '/assets/events/EVENT1716123011134.jpeg',
