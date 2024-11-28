@@ -7,13 +7,42 @@ import {
   AdminEventTransactionQuery,
   FilterDate,
 } from '@/types/admin.type';
+import { TransactionStatus } from '@/types/transaction.type';
 import { ErrorMessage } from '@/utils/errmessage';
 import { decrementDate, incrementDate } from '@/utils/generatedate';
 import { responseWithData } from '@/utils/response';
 import { AdminValidation } from '@/validations/admin.validaton';
+import { EventValidation } from '@/validations/event.validation';
 import { Validation } from '@/validations/validation';
 
 export class AdminService {
+  static getAdminEvents(id: number, query: AdminEventQuery) {
+    throw new Error('Method not implemented.');
+  }
+  static getAdminEventTransactions(id: number, query: AdminEventTransactionQuery) {
+    throw new Error('Method not implemented.');
+  }
+  static getAdminTotalSales(id: number, query: FilterDate) {
+    throw new Error('Method not implemented.');
+  }
+  static getAdminTransactionStatus(id: number, query: FilterDate) {
+    throw new Error('Method not implemented.');
+  }
+  static updateAdminTransactionStatus(id: number, transactionId: string, request: TransactionStatus) {
+    throw new Error('Method not implemented.');
+  }
+  static getAdminEventParticipations(id: number, eventId: string, query: AdminEventQuery) {
+    throw new Error('Method not implemented.');
+  }
+  static getTransaction(id: number, transactionId: string) {
+    throw new Error('Method not implemented.');
+  }
+  static getTransactionDetails(id: number, transactionId: string) {
+    throw new Error('Method not implemented.');
+  }
+  static getEvent(id: number, eventId: string) {
+    throw new Error('Method not implemented.');
+  }
   static async getAdminEventsStats(
     id: number,
     query: AdminEventQuery
