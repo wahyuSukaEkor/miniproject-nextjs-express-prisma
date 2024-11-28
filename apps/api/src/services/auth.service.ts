@@ -9,7 +9,6 @@ import { ErrorMessage } from '@/utils/errmessage';
 import { JWT_SECRET } from '@/config';
 import { sign, verify } from 'jsonwebtoken';
 
-
 export function generateJWTToken(payload: any): string {
   return sign(payload, JWT_SECRET);
 }
@@ -20,18 +19,17 @@ export function verifyJWTToken(token: string): any {
 
 export class AuthService {
   static async register(request: RegisterRequest) {
-    const { email, isAdmin, password, username, referralCode } =
+    const { email, isAdmin, password, username, referral_code } =
       Validation.validate(AuthValidation.REGISTER, request);
 
-      const existingUser = await prisma.user.findFirst({
-        where: {
-          OR: [
-            { username: username },
-            { email: email }
-          ]
-        },
-      });
-
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username: username },
+          { email: email }
+        ]
+      },
+    });
 
     if (existingUser) {
       throw new ErrorMessage(
@@ -40,8 +38,8 @@ export class AuthService {
       );
     }
 
-    if (!isAdmin && referralCode) {
-      await this._handleReferralCodeLogic(username, referralCode);
+    if (!isAdmin && referral_code) {
+      await this._handleReferralCodeLogic(username, referral_code);
     }
 
     await prisma.user.create({
@@ -50,7 +48,7 @@ export class AuthService {
         isAdmin,
         username,
         password: await hashPassword(password),
-        referralCode: isAdmin ? undefined : generateReferralCode(username.slice(0, 3)),
+        referral_code: isAdmin ? undefined : generateReferralCode(username.slice(0, 3)),
       },
     });
 
@@ -71,7 +69,7 @@ export class AuthService {
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) throw new ErrorMessage(401, 'Password is wrong!');
 
-    const token = generateJWTToken({ id: user.user_id, isAdmin: user.isAdmin }); // Use user_id here
+    const token = generateJWTToken({ id: user.user_id, isAdmin: user.isAdmin });
 
     return responseWithData(200, true, 'Login was successful', {
       username: user.username,
@@ -98,9 +96,9 @@ export class AuthService {
     });
   }
 
-  private static async _handleReferralCodeLogic(username: string, referralCode: string) {
+  private static async _handleReferralCodeLogic(username: string, referral_code: string) {
     const userByReferralCode = await prisma.user.findUnique({
-      where: { referralCode },
+      where: { referral_code },
     });
 
     if (!userByReferralCode) {
@@ -110,44 +108,44 @@ export class AuthService {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() + 3);
 
-    // await prisma.$transaction(async (tx) => {
-    //   if (!userByReferralCode.point) {
-    //     await tx.point.create({
-    //       data: {
-    //         total_point: 10000,
-    //         expired_date: currentDate,
-    //         user: { connect: { user_id: userByReferralCode.user_id } }, // Use user_id here
-    //       },
-    //     });
-    //   } else {
-    //     await tx.point.update({
-    //       data: {
-    //         total_point: userByReferralCode.point.total_point + 10000,
-    //         expired_date: currentDate,
-    //       },
-    //       where: { id: userByReferralCode.point.id },
-    //     });
-    //   }
+    await prisma.$transaction(async (tx) => {
+      if (!userByReferralCode.point) {
+        await tx.point.create({
+          data: {
+            total_point: 10000,
+            expired_date: currentDate,
+            user: { connect: { user_id: userByReferralCode.user_id } },
+          },
+        });
+      } else {
+        await tx.point.update({
+          data: {
+            total_point: userByReferralCode.point.total_point + 10000,
+            expired_date: currentDate,
+          },
+          where: { id: userByReferralCode.point.id },
+        });
+      }
 
-    //   const newUser = await tx.user.create({
-    //     data: {
-    //       email: request.email,
-    //       isAdmin: request.isAdmin,
-    //       username,
-    //       password: await hashPassword(request.password),
-    //       referralCode: generateReferralCode(username.slice(0, 3)),
-    //     },
-    //   });
+      const newUser = await tx.user.create({
+        data: {
+          email: request.email,
+          isAdmin: request.isAdmin,
+          username,
+          password: await hashPassword(request.password),
+          referral_code: generateReferralCode(username.slice(0, 3)),
+        },
+      });
 
-    //   await tx.voucher.create({
-    //     data: {
-    //       discount: 10,
-    //       expired_date: currentDate,
-    //       max_usage: 1,
-    //       name: generateVoucherCode(referralCode),
-    //       user: { connect: { user_id: newUser.user_id } },
-    //     },
-    //   });
-    // });
+      await tx.voucher.create({
+        data: {
+          discount: 10,
+          expired_date: currentDate,
+          max_usage: 1,
+          name: generateVoucherCode(referral_code),
+          user: { connect: { user_id: newUser.user_id } },
+        },
+      });
+    });
   }
 }

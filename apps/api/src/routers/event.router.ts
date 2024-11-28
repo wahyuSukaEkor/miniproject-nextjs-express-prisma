@@ -1,5 +1,5 @@
 import { EventController } from '@/controllers/event.controller';
-// import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
+import { adminGuard, verifyToken } from '@/middlewares/auth.middleware';
 import { uploader } from '@/middlewares/uploader.middleware';
 import { Router } from 'express';
 
@@ -28,16 +28,16 @@ export class EventRouter {
 
     this.router.patch(
       '/:eventId',
-      // verifyToken,
-      // adminGuard,
+      verifyToken,
+      adminGuard,
       uploader('/events', 'EVENT').single('image'),
       this.eventController.updateEvent,
     );
 
     this.router.delete(
       '/:eventId',
-      // verifyToken,
-      // adminGuard,
+      verifyToken,
+      adminGuard,
       this.eventController.deleteEvent,
     );
 

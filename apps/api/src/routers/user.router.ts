@@ -1,5 +1,5 @@
 import { UserController } from '@/controllers/user.controller';
-// import { verifyToken } from '@/middlewares/auth.middleware';
+import { verifyToken } from '@/middlewares/auth.middleware';
 import { Router } from 'express';
 
 export class UserRouter {
@@ -15,7 +15,7 @@ export class UserRouter {
   private initializeRoutes(): void {
     this.router.get(
       '/profile',
-      // verifyToken,
+      verifyToken,
       this.userController.getUserProfile,
     );
   }
