@@ -5,6 +5,7 @@ import {
     LineChart,
     NotebookPen,
     TicketPercent,
+    User2Icon,
   } from "lucide-react";
   
   export const participantMenuItems = [
@@ -20,7 +21,7 @@ import {
     },
     {
       name: "Profile",
-      icon: ArrowRightLeft,
+      icon: User2Icon,
       link: "/profile",
     }
   ];
