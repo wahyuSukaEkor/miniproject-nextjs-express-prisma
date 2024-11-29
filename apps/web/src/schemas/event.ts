@@ -12,7 +12,7 @@ yesterday.setDate(yesterday.getDate() - 1);
 
 export const eventSchema = z
   .object({
-    name: z
+    event_name: z
       .string({ required_error: "Name is required!" })
       .min(3, { message: "Name must be at least 3 characters!" }),
     price: z.coerce

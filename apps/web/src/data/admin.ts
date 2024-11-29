@@ -8,11 +8,11 @@ import { ResponseWithData, ResponseWithoutData } from "@/types/global";
 import axios from "axios";
 
 export const getAdminTotalSales = async (token: string, filter: FilterDate) => {
-  const { startDate, endDate } = filter;
+  const { start_date, end_date } = filter;
 
   const res = await axios.get<ResponseWithData<AdminTotalSalesResponse[]>>(
     NEXT_PUBLIC_BASE_API_URL +
-      `/admin/total-sales?start_date=${startDate}&end_date=${endDate}`,
+      `/admin/total-sales?start_date=${start_date}&end_date=${end_date}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
@@ -23,13 +23,13 @@ export const getTransactionStatus = async (
   token: string,
   filter: FilterDate,
 ) => {
-  const { startDate, endDate } = filter;
+  const { start_date, end_date } = filter;
 
   const res = await axios.get<
     ResponseWithData<AdminTransactionStatusResponse[]>
   >(
     NEXT_PUBLIC_BASE_API_URL +
-      `/admin/transaction-status?start_date=${startDate}&end_date=${endDate}`,
+      `/admin/transaction-status?start_date=${start_date}&end_date=${end_date}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
