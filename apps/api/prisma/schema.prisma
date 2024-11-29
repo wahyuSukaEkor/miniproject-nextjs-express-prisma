@@ -46,7 +46,7 @@ model Event {
   user            User          @relation(fields: [user_id], references: [id])
   event_name      String
   price           Int
-  description     String
+  description     String        @db.Text
   start_date      DateTime
   end_date        DateTime
   available_seats Int
