@@ -12,7 +12,7 @@ const NavbarDetail: React.FunctionComponent<INavbarDetailProps> = (props) => {
     <section className=" hidden h-[152px] w-full border-b-2 bg-white  text-black md:block ">
       <div className="mx-[168px] flex justify-between pt-[20px]">
         <Link href={`/`}>
-          <h1 className=" text-[20px] font-semibold text-[#5cc8e4]">NGIVENT</h1>
+          <h1 className=" text-[20px] font-semibold text-[#5cc8e4]">TIKETAKTI</h1>
         </Link>
         <div className=" flex space-x-2">
           <Link href={`/sign-in`}>

@@ -15,6 +15,7 @@ interface ICardBeforeReviewProps {
   waktu: string;
   harga: number;
   feedbacks: any;
+  reviews?: any;
   rating: any;
 }
 

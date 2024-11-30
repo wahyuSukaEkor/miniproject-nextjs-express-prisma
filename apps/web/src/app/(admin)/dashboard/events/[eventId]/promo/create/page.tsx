@@ -74,7 +74,7 @@ const CreatePromoSection: React.FunctionComponent<ICreatePromoSectionProps> = (
                 <div>
                   <h4>Discount Name</h4>
                   <Input
-                    placeholder="NGIVENT BULAN RAMADHAN 20%"
+                    placeholder="TIKETAKTI TAHUN BARU 2025 20%"
                     onChange={(element: any) => {
                       const newData = {
                         ...dataDiscount,

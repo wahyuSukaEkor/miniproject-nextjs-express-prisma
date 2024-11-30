@@ -32,13 +32,13 @@ const DetailOrder: React.FunctionComponent<IDetailOrderProps> = (props) => {
           <div className=" flex">
           <Image
           className="h-[40px] w-[40px] rounded-md "
-          src={event.imageURL}
+          src={event.thumbnails_path}
           width={236}
           height={148}
           alt=""
         />
             <div className="flex items-center overflow-hidden  overflow-ellipsis whitespace-nowrap px-2">
-              <p className=" text-[14px] font-semibold">{event.name}</p>
+              <p className=" text-[14px] font-semibold">{event.event_name}</p>
             </div>
           </div>
           <div id="stroke" className=" mt-[10px] border"></div>
@@ -49,7 +49,7 @@ const DetailOrder: React.FunctionComponent<IDetailOrderProps> = (props) => {
           <div id="stroke" className=" border "></div>
           <div className="my-[24px] space-y-3  text-[12px] text-gray-800">
             <h1>Tanggal dipilih</h1>
-            <h1 className="text-[14px] text-black">{event.startDate}</h1>
+            <h1 className="text-[14px] text-black">{event.start_date}</h1>
           </div>
           <div id="stroke" className=" border "></div>
           <div className=" my-[16px] flex justify-between  text-[12px] text-gray-800">

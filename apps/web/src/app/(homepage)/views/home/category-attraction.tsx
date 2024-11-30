@@ -16,7 +16,7 @@ const CategoryAttractionSection: React.FunctionComponent<
 > = (props) => {
   const [activeButton, setActiveButton] = React.useState("Online");
   const [getData, setGetData] = React.useState<any>({
-    locationId: 0,
+    location_id: 0,
   });
   const [event, setEvent] = React.useState<any>([]);
   const [loading, setLoading] = React.useState(true);
@@ -30,9 +30,9 @@ const CategoryAttractionSection: React.FunctionComponent<
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + `/events?categoryId=6`;
+      let url = NEXT_PUBLIC_BASE_API_URL + `/events?category_id=6`;
       if (getData.locationId) {
-        url += `&locationId=${getData.locationId}`;
+        url += `&location_id=${getData.location_id}`;
       }
       const response = await axios.get(url);
       setEvent(response.data.result);
@@ -43,7 +43,7 @@ const CategoryAttractionSection: React.FunctionComponent<
     }
   };
   const filterEventAttraction = event.filter(
-    (event: any) => (event.categoryId = 6),
+    (event: any) => (event.category_id = 6),
   );
 
   return (
@@ -68,7 +68,7 @@ const CategoryAttractionSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 0,
+                  location_id: 0,
                 };
                 setGetData(newData);
                 setActiveButton("Online");
@@ -82,7 +82,7 @@ const CategoryAttractionSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 265,
+                  locationid: 265,
                 };
                 setGetData(newData);
                 setActiveButton("Surabaya");
@@ -96,7 +96,7 @@ const CategoryAttractionSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 364,
+                  locationid: 364,
                 };
                 setGetData(newData);
                 setActiveButton("Balikpapan");
@@ -127,11 +127,11 @@ const CategoryAttractionSection: React.FunctionComponent<
                   <div key={index}>
                     <CardEvent
                       id={event.id}
-                      judul={event.name}
+                      judul={event.event_name}
                       lokasi={event.location.name}
                       waktu={event.end_date}
                       harga={event.price}
-                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                     />
                   </div>
                 ))}
