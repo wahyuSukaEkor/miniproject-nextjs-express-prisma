@@ -35,7 +35,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
       for (let i = 0; i < UserProfile.result.vouchers.length; i++) {
         if (
           UserProfile.result.vouchers[i].usage <
-          UserProfile.result.vouchers[i].maxUsage
+          UserProfile.result.vouchers[i].max_usage
         ) {
           voucherAfterFilter.push(UserProfile.result.vouchers[i]);
         }

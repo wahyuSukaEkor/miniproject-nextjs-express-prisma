@@ -50,7 +50,7 @@ const Review: React.FunctionComponent<IReviewProps> = (props) => {
         url,
         {
           rating: clickedStars,
-          message: textReview ? textReview : undefined,
+          comment: textReview ? textReview : undefined,
           eventId: Number(params.eventId),
         },
         config,
@@ -64,16 +64,16 @@ const Review: React.FunctionComponent<IReviewProps> = (props) => {
   return (
     <section className="mx-auto w-fit rounded-lg bg-white p-10">
       <div className=" flex  flex-col space-y-4">
-        {event.imageURL && (
+        {event.thumbnails_path && (
           <Image
             className=" w-[400px] rounded-md  bg-center object-cover"
-            src={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+            src={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
             width={1000}
             height={1000}
             alt=""
           />
         )}
-        <h1>{event.name}</h1>
+        <h1>{event.event_name}</h1>
         <div className="flex space-x-2">
           {[1, 2, 3, 4, 5].map((index) => (
             <FaStar
