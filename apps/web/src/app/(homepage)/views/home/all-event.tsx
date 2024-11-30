@@ -39,13 +39,13 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
   const [activeButton, setActiveButton] = React.useState("All");
   const [events, setEvents] = React.useState([]);
   const [getData, setGetData] = React.useState<any>({
-    categoryId: 0,
+    category_id: 0,
     location: "",
   });
 
   // FITUR DATE
-  const [startDate, setStartDate] = React.useState<string>("");
-  const [endDate, setEndDate] = React.useState<string>("");
+  const [start_date, setStartDate] = React.useState<string>("");
+  const [end_date, setEndDate] = React.useState<string>("");
 
   //fitur search
   const [search, setSearch] = React.useState("");
@@ -53,35 +53,35 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     onHandleGet();
-  }, [getData, currentPage, searchDebouce, startDate, endDate]);
+  }, [getData, currentPage, searchDebouce, start_date, end_date]);
   const onHandleGet = async () => {
     try {
       setLoading(true);
       let params: string[] = [];
       if (searchDebouce) {
-        params.push(`name=${searchDebouce}`);
+        params.push(`event_name=${searchDebouce}`);
       }
 
-      if (getData.categoryId) {
-        params.push(`categoryId=${getData.categoryId}`);
+      if (getData.category_id) {
+        params.push(`category_id=${getData.category_id}`);
       }
 
       if (getData.location) {
-        params.push(`locationId=${getData.location.id}`);
+        params.push(`location_id=${getData.location.id}`);
       }
 
       if (currentPage) {
         params.push(`page=${currentPage}`);
       }
 
-      if (startDate) {
-        const isoStartDate = new Date(startDate).toISOString();
-        params.push(`startDate=${isoStartDate}`);
+      if (start_date) {
+        const isoStartDate = new Date(start_date).toISOString();
+        params.push(`start_date=${isoStartDate}`);
       }
 
-      if (endDate) {
-        const isoEndDate = new Date(endDate).toISOString();
-        params.push(`endDate=${isoEndDate}`);
+      if (end_date) {
+        const isoEndDate = new Date(end_date).toISOString();
+        params.push(`end_date=${isoEndDate}`);
       }
 
       const queryString = params.length ? `?${params.join("&")}` : "";
@@ -133,7 +133,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 0,
+                    category_id: 0,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -148,7 +148,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 1,
+                    category_id: 1,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -163,7 +163,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 2,
+                    category_id: 2,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -178,7 +178,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 3,
+                    category_id: 3,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -193,7 +193,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 4,
+                    category_id: 4,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -208,7 +208,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 5,
+                    category_id: 5,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -223,7 +223,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    categoryId: 6,
+                    category_id: 6,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -312,10 +312,10 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
               <div key={index}>
                 <CardEvent
                   id={event.id}
-                  urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
-                  judul={event.name}
+                  urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
+                  judul={event.event_name}
                   lokasi={event.location.name}
-                  waktu={event.createdAt}
+                  waktu={event.created_at}
                   harga={event.price}
                 />
               </div>

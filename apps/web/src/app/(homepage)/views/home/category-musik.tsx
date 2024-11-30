@@ -19,19 +19,19 @@ const CategoryMusikSection: React.FunctionComponent<
 
   const [activeButton, setActiveButton] = React.useState("Online");
   const [getData, setGetData] = React.useState<any>({
-    locationId: 0,
+    location_id: 0,
   });
   React.useEffect(() => {
     onHandleGet();
   }, [getData]);
   const [displayedEvents, setDisplayedEvents] = React.useState(5);
-  const filterEventMusik = event.filter((event: any) => event.categoryId === 2);
+  const filterEventMusik = event.filter((event: any) => event.category_id === 2);
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?categoryId=2";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=2";
       if (getData.locationId) {
-        url += `&locationId=${getData.locationId}`;
+        url += `&location_id=${getData.location_id}`;
       }
       const response = await axios.get(url);
       setEvent(response.data.result);
@@ -60,7 +60,7 @@ const CategoryMusikSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 0,
+                  location_id: 0,
                 };
                 setGetData(newData);
                 setActiveButton("All");
@@ -74,7 +74,7 @@ const CategoryMusikSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 158,
+                  location_id: 158,
                 };
                 setGetData(newData);
                 setActiveButton("Jakarta");
@@ -88,7 +88,7 @@ const CategoryMusikSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationId: 283,
+                  location_id: 283,
                 };
                 setGetData(newData);
                 setActiveButton("Denpasar");
@@ -119,11 +119,11 @@ const CategoryMusikSection: React.FunctionComponent<
                   <div key={index}>
                     <CardEvent
                       id={event.id}
-                      judul={event.name}
+                      judul={event.event_name}
                       lokasi={event.location.name}
-                      waktu={event.createdAt}
+                      waktu={event.created_at}
                       harga={event.price}
-                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                     />
                   </div>
                 ))}

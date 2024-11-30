@@ -21,12 +21,12 @@ const CategorySportsSection: React.FunctionComponent<
   }, []);
   const [displayedEvents, setDisplayedEvents] = React.useState(5);
   const filterEventSports = event.filter(
-    (event: any) => event.categoryId === 3,
+    (event: any) => event.category_id === 3,
   );
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?categoryId=3";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=3";
       const response = await axios.get(url);
       setEvent(response.data.result);
       // console.log("HASIL RESPONSE DATA :",response.data.result);
@@ -58,11 +58,11 @@ const CategorySportsSection: React.FunctionComponent<
                   <div key={index}>
                     <CardEvent
                       id={event.id}
-                      judul={event.name}
+                      judul={event.event_name}
                       lokasi={event.location.name}
-                      waktu={event.createdAt}
+                      waktu={event.created_at}
                       harga={event.price}
-                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                     />
                   </div>
                 ))}

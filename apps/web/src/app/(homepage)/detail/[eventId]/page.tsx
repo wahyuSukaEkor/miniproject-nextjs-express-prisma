@@ -106,7 +106,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
       {/* DESKRIPSI ACARA */}
       <div className="relative top-[-40px] mx-[10px] mt-[24px] h-auto w-[360px] rounded-lg border bg-white  p-[20px] shadow md:static md:mx-auto md:w-[690PX] md:border-none md:px-[28px] md:py-[28px]  md:shadow-none ">
         <h1 className="text-center text-[22px] font-semibold md:text-left md:text-[18px]">
-          {loading ? <Skeleton width={800} /> : event.name}
+          {loading ? <Skeleton width={800} /> : event.event_name}
         </h1>
         <div className=" mt-[10px] space-y-[14px]">
           <div className=" flex items-center">
@@ -124,7 +124,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
           <div className=" flex items-center">
             <BiBookmarks className=" h-[20px] w-[20px] text-[#aeb2be] md:h-[24px] md:w-[24px]" />
             <p className="mx-[12px]  text-[14px] md:text-[14px]">
-              {loading ? <Skeleton width={100} /> : event.category?.name}
+              {loading ? <Skeleton width={100} /> : event.category?.category_name}
             </p>
           </div>
           <div className=" flex items-center">
@@ -172,12 +172,12 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
                 type="button"
                 onClick={() => {
                   if (
-                    parseInt(transaction.seatRequests) < event.limitCheckout
+                    parseInt(transaction.seatRequests) < event.buy_limit
                   ) {
                     countHarga("+");
                   } else {
                     toast.error(
-                      `Sorry, transactions at this event are only for purchasing ${event.limitCheckout} tickets`,
+                      `Sorry, transactions at this event are only for purchasing ${event.buy_limit} tickets`,
                     );
                   }
                 }}
@@ -197,7 +197,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
             ></div>
             <div className=" flex items-center justify-between py-[18px] text-[14px] md:text-[14px]">
               <p>
-                Available Seat : {event.availableSeats} / {event.maxCapacity}
+                Available Seat : {event.available_seats} / {event.max_capacity}
               </p>
               <Link href={`/transaction/${id.eventId}`}>
                 <Button
