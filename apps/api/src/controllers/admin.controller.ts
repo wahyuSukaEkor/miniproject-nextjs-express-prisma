@@ -92,12 +92,12 @@ export class AdminController {
   ) {
     try {
       const id = res.locals.decoded.id as number;
-      const event_id = req.params.event_id;
+      const eventId = req.params.eventId;
       const query = req.query as AdminEventQuery;
 
       const response = await AdminService.getAdminEventParticipations(
         id,
-        event_id,
+        eventId,
         query,
       );
       return res.status(200).send(response);
@@ -140,9 +140,9 @@ export class AdminController {
   public async getEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const id = res.locals.decoded.id as number;
-      const event_id = req.params.event_id;
+      const eventId = req.params.eventId;
 
-      const response = await AdminService.getEvent(id, event_id);
+      const response = await AdminService.getEvent(id, eventId);
       return res.status(200).send(response);
     } catch (error) {
       next(error);
