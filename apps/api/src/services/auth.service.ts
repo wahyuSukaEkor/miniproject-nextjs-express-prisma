@@ -80,7 +80,7 @@ export class AuthService {
           await tx.voucher.create({
             data: {
               discount: 10,
-              expireed_date: currentDate,
+              expired_date: currentDate,
               max_usage: 1,
               name: generateVoucherCode(userByReferralCode.referral_code!),
 
