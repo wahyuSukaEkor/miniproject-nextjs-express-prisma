@@ -31,24 +31,19 @@ import { cn } from "@/lib/utils";
 import { LocationSearch } from "@/components/shared/location-search";
 import { LocationResponse } from "@/types/location";
 import { ChevronsUpDown } from "lucide-react";
-// import SelectLocation from "./profile/select-location";
 
 interface IInputSearchProps {}
 
 const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
-  //buat location
   const handleSetActive = React.useCallback((item: LocationResponse) => {
     setSelected(item);
     setOpen(false);
   }, []);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<
-    LocationResponse | undefined
-  >();
+  const [selected, setSelected] = React.useState<LocationResponse | undefined>();
   const displayName = selected ? selected.name : "Select location";
-  //buat kategori
-  const [categories, setCategories] = React.useState<any[]>([]);
 
+  const [categories, setCategories] = React.useState<any[]>([]);
   const [getData, setGetData] = React.useState<any>({
     category: "",
     location: "",
@@ -56,10 +51,12 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
   const [search, setSearch] = React.useState("");
   const [event, setEvent] = React.useState<any>([]);
   const [searchDebouce] = useDebounce(search, 1000);
+
   React.useEffect(() => {
     onHandleGet();
     getCategories();
   }, [searchDebouce, getData, open]);
+
   const onHandleGet = async () => {
     try {
       let url = NEXT_PUBLIC_BASE_API_URL + "/events/search?";
@@ -79,6 +76,7 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
       console.log(err);
     }
   };
+
   const getCategories = async () => {
     try {
       const url = NEXT_PUBLIC_BASE_API_URL + "/categories";
@@ -88,29 +86,30 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
       console.log("Error fetching categories:", error);
     }
   };
+
   return (
-    <section className=" mx-auto flex">
+    <section className="mx-auto flex">
       <Sheet>
         <SheetTrigger>
           <Input
-            className="mx-auto mt-[10px] h-[36px] w-[300px]"
+            className="mx-auto mt-[12px] h-[40px] w-[320px] bg-[#f4f7fe] text-sm font-medium placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text"
             placeholder="Search for your event"
           />
         </SheetTrigger>
         <SheetContent
           side="bottom"
-          className="mx-auto mb-0 h-[450px] w-full overflow-hidden rounded-lg bg-white md:mb-10 md:h-[534px] md:w-[450px]"
+          className="mx-auto mb-0 h-[500px] w-full overflow-hidden rounded-lg bg-white md:mb-10 md:h-[580px] md:w-[480px]"
         >
           <SheetHeader>
-            <SheetDescription className="  mx-auto">
+            <SheetDescription className="mx-auto">
               <Input
-                className="h-[36px] w-[300px]  bg-[#f4f7fe]"
+                className="h-[40px] w-[320px] bg-[#f4f7fe] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text"
                 placeholder="Search for your event"
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <div className=" mt-[10px] flex space-x-8">
+              <div className="mt-[12px] flex space-x-6">
                 <Select
                   onValueChange={(element: any) => {
                     const newData = {
@@ -120,7 +119,7 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
                     setGetData(newData);
                   }}
                 >
-                  <SelectTrigger className="w-[158px] ">
+                  <SelectTrigger className="w-[160px] h-[36px] bg-[#f4f7fe] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -134,7 +133,8 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
                     ))}
                   </SelectContent>
                 </Select>
-                {/* SELECT LOCATION MULAI */}
+
+                {/* LOCATION SELECTOR */}
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
@@ -142,15 +142,15 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
                       role="combobox"
                       aria-expanded={open}
                       className={cn(
-                        "w-[216px] overflow-hidden overflow-ellipsis whitespace-nowrap",
-                        !selected && "text-muted-foreground",
+                        "w-[216px] h-[36px] overflow-hidden overflow-ellipsis whitespace-nowrap bg-[#f4f7fe] rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        !selected && "text-muted-foreground"
                       )}
                     >
                       {displayName}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50 " />
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent align="start" className="p-0 ">
+                  <PopoverContent align="start" className="p-0">
                     <LocationSearch
                       selectedResult={selected}
                       onSelectResult={(result) => {
@@ -160,12 +160,12 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
                     />
                   </PopoverContent>
                 </Popover>
-                {/* SELECT LOCATION AKHIR */}
+                {/* END LOCATION SELECTOR */}
               </div>
               <div className="flex overflow-auto rounded-b-lg p-4">
-                <div className="mt-[12px] h-[320px] space-y-1">
+                <div className="mt-[14px] h-[320px] space-y-1">
                   {event.length === 0 ? (
-                    <div className="text-center">Event not found</div>
+                    <div className="text-center text-sm text-gray-500">Event not found</div>
                   ) : (
                     event.map((event: any, index: number) => (
                       <div key={index}>

@@ -15,9 +15,9 @@ export class VoucherService {
     );
 
     const event = await EventRepository.getEventById(eventId);
-    console.log('data userId :', event);
+    console.log('data user_id :', event);
 
-    // INI PAKE PENGULANGAN, IN IUNDIFINED SOALNYA
+
     if (!event) {
       throw new ErrorResponse(404, 'Event not found!');
     }

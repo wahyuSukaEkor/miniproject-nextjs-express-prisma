@@ -71,12 +71,12 @@ export class AdminController {
   ) {
     try {
       const id = res.locals.decoded.id as number;
-      const transactionId = req.params.transactionId;
+      const transaction_id = req.params.transaction_id;
       const request = req.body as TransactionStatus;
 
       const response = await AdminService.updateAdminTransactionStatus(
         id,
-        transactionId,
+        transaction_id,
         request,
       );
       return res.status(200).send(response);
@@ -109,9 +109,9 @@ export class AdminController {
   public async getTransaction(req: Request, res: Response, next: NextFunction) {
     try {
       const id = res.locals.decoded.id as number;
-      const transactionId = req.params.transactionId;
+      const transaction_id = req.params.transaction_id;
 
-      const response = await AdminService.getTransaction(id, transactionId);
+      const response = await AdminService.getTransaction(id, transaction_id);
       return res.status(200).send(response);
     } catch (error) {
       next(error);
@@ -125,11 +125,11 @@ export class AdminController {
   ) {
     try {
       const id = res.locals.decoded.id as number;
-      const transactionId = req.params.transactionId;
+      const transaction_id = req.params.transaction_id;
 
       const response = await AdminService.getTransactionDetails(
         id,
-        transactionId,
+        transaction_id,
       );
       return res.status(200).send(response);
     } catch (error) {
