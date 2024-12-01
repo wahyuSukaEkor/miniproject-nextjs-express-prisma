@@ -78,12 +78,12 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
       let url = NEXT_PUBLIC_BASE_API_URL + `/events/${id.eventId}`;
       const response = await axios.get(url);
       let voucherAfterFilter = [];
-      for (let i = 0; i < UserProfile.result.vouchers.length; i++) {
+      for (let i = 0; i < UserProfile.result.Voucher.length; i++) {
         if (
-          UserProfile.result.vouchers[i].usage <
-          UserProfile.result.vouchers[i].max_usage
+          UserProfile.result.Voucher[i].usage <
+          UserProfile.result.Voucher[i].max_usage
         ) {
-          voucherAfterFilter.push(UserProfile.result.vouchers[i]);
+          voucherAfterFilter.push(UserProfile.result.Voucher[i]);
         }
       }
       setEvent({
