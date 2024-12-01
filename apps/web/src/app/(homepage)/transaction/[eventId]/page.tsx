@@ -30,7 +30,7 @@ import { toast } from "sonner";
 
 interface IBayarPageProps {
   points: {
-    balance: number;
+    total_point: number;
   };
 }
 
@@ -247,6 +247,7 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
                   alt=""
                 />
               )}
+              
               <div className="flex items-center overflow-hidden  overflow-ellipsis whitespace-nowrap px-2">
                 <p className=" text-[14px] font-semibold">{event.event_name}</p>
               </div>

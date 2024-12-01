@@ -10,12 +10,12 @@ export const participantSchema = z
       .string()
       .min(4, { message: "Password must be at least 4 characters!" }),
     confirmPassword: z.string(),
-    referralCode: z
+    referal_code: z
       .string()
       .trim()
       .refine(
-        (referralCode) => {
-          if (referralCode !== "" && referralCode.length < 6) return false;
+        (referal_code) => {
+          if (referal_code !== "" && referal_code.length < 6) return false;
           return true;
         },
         { message: "Referral Code must be at least 6 characters!" },

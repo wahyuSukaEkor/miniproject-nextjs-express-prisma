@@ -48,28 +48,28 @@ export const useEventParticipation = ({
 };
 
 export const useTransaction = ({
-  transactionId,
+  transaction_id,
 }: {
-  transactionId: number;
+  transaction_id: number;
 }) => {
   const token = Cookie.get("admin-tkn");
 
   return useQuery({
-    queryKey: ["transaction", { token, transactionId }],
-    queryFn: () => getTransaction(token!, transactionId),
+    queryKey: ["transaction", { token, transaction_id }],
+    queryFn: () => getTransaction(token!, transaction_id),
   });
 };
 
 export const useTransactionDetails = ({
-  transactionId,
+  transaction_id,
 }: {
-  transactionId: number;
+  transaction_id: number;
 }) => {
   const token = Cookie.get("admin-tkn");
 
   return useQuery({
-    queryKey: ["transactionDetails", { token, transactionId }],
-    queryFn: () => getTransactionDetails(token!, transactionId),
+    queryKey: ["transactionDetails", { token, transaction_id }],
+    queryFn: () => getTransactionDetails(token!, transaction_id),
   });
 };
 

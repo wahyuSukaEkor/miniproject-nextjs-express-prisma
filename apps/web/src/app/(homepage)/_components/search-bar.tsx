@@ -64,13 +64,13 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
     try {
       let url = NEXT_PUBLIC_BASE_API_URL + "/events/search?";
       if (searchDebouce) {
-        url += `${getData.category || getData.location ? "&" : ""}name=${searchDebouce}`;
+        url += `${getData.category || getData.location ? "&" : ""}event_name=${searchDebouce}`;
       }
       if (getData.category) {
-        url += `${searchDebouce || getData.location ? "&" : ""}categoryId=${getData.category}`;
+        url += `${searchDebouce || getData.location ? "&" : ""}category_id=${getData.category}`;
       }
       if (getData.location) {
-        url += `${searchDebouce || getData.category ? "&" : ""}locationId=${getData.location.id}`;
+        url += `${searchDebouce || getData.category ? "&" : ""}location_id=${getData.location.id}`;
       }
 
       let response = await axios.get(url);
@@ -171,9 +171,9 @@ const InputSearch: React.FunctionComponent<IInputSearchProps> = (props) => {
                       <div key={index}>
                         <CardSearch
                           id={event.id}
-                          judul={event.name}
+                          judul={event.event_name}
                           lokasi={event.location?.name}
-                          imageURL={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                          imageURL={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                         />
                       </div>
                     ))

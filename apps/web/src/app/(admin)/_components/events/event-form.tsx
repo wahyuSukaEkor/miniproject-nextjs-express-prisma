@@ -53,7 +53,7 @@ const EventForm: React.FC<Props> = ({ type = "create", event }) => {
   const form = useForm<EventSchema>({
     resolver: zodResolver(eventSchema),
     defaultValues: {
-      name: event?.event_name || "",
+      event_name: event?.event_name || "",
       price: event && event.price >= 0 ? event.price : undefined,
       start_date: event?.start_date ? new Date(event?.start_date) : undefined,
       end_date: event?.end_date ? new Date(event?.end_date) : undefined,
@@ -126,7 +126,7 @@ const EventForm: React.FC<Props> = ({ type = "create", event }) => {
             <CardHeader className="space-y-4">
               <FormField
                 control={form.control}
-                name="name"
+                name="event_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>

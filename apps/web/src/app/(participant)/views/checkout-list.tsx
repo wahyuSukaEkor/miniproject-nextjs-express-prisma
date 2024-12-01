@@ -47,12 +47,12 @@ const MyChecoutList: React.FunctionComponent<IMyChecoutListProps> = (props) => {
           event?.map((event: any, index: number) => (
             <div key={index}>
               <CardCheckout
-                id={event.transactionId}
-                judul={event.name}
+                id={event.transaction_id}
+                judul={event.event_name}
                 lokasi={event.location.name}
-                waktu={event.createdAt}
-                harga={event.discountedAmount ?? event.originalAmount}
-                urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                waktu={event.created_at}
+                harga={event.discounted_price ?? event.total_price}
+                urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
               />
             </div>
           ))

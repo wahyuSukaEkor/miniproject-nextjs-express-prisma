@@ -20,7 +20,7 @@ import EventDeleteAlert from "./event-delete-alert";
 
 export const eventColumns: ColumnDef<AdminEventResponse>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "event_name",
     header: ({ column }) => {
       return (
         <Button
@@ -54,7 +54,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
     },
   },
   {
-    accessorKey: "availableSeats",
+    accessorKey: "available_seats",
     header: ({ column }) => {
       return (
         <div className="flex items-center justify-center">
@@ -69,7 +69,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const value: number = row.getValue("availableSeats");
+      const value: number = row.getValue("available_seats");
       return (
         <div className="flex items-center justify-center">
           {!value ? (
@@ -82,7 +82,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
     },
   },
   {
-    accessorKey: "maxCapacity",
+    accessorKey: "max_capacity",
     header: ({ column }) => {
       return (
         <div className="flex items-center justify-center">
@@ -97,7 +97,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const value: number = row.getValue("maxCapacity");
+      const value: number = row.getValue("max_capacity");
       return (
         <div className="flex items-center justify-center">
           <Badge variant="secondary">{formatNumber(value)}</Badge>
@@ -106,7 +106,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
     },
   },
   {
-    accessorKey: "startDate",
+    accessorKey: "start_date",
     header: ({ column }) => {
       return (
         <Button
@@ -120,13 +120,13 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const date: string = row.getValue("startDate");
+      const date: string = row.getValue("start_date");
       return <div className="text-nowrap font-medium">{formatDate(date)}</div>;
     },
   },
 
   {
-    accessorKey: "endDate",
+    accessorKey: "end_date",
     header: ({ column }) => {
       return (
         <Button
@@ -140,12 +140,12 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const date: string = row.getValue("endDate");
+      const date: string = row.getValue("end_date");
       return <div className="text-nowrap font-medium">{formatDate(date)}</div>;
     },
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "created_at",
     header: ({ column }) => {
       return (
         <Button
@@ -159,7 +159,7 @@ export const eventColumns: ColumnDef<AdminEventResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const date: string = row.getValue("createdAt");
+      const date: string = row.getValue("created_at");
       return <div className="text-nowrap font-medium">{formatDate(date)}</div>;
     },
   },

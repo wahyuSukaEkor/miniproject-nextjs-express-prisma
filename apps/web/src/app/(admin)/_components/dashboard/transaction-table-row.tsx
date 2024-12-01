@@ -10,7 +10,7 @@ import LoadingTableRow from "./loading-table-row";
 
 const TransactionTableRow: React.FC = () => {
   const { isPending, isError, data, error } = useAdminEventTransactions({
-    pagination: { page: 1, limit: 3, sort_by: "createdAt", order_by: "desc" },
+    pagination: { page: 1, limit: 3, sort_by: "created_at", order_by: "desc" },
   });
 
   if (isPending) return <LoadingTableRow />;
@@ -37,7 +37,7 @@ const TransactionTableRow: React.FC = () => {
   }
 
   return data?.result.map((transaction) => {
-    const amount = transaction.discountedAmount ?? transaction.originalAmount;
+    const amount = transaction.discounted_price ?? transaction.total_price;
 
     return (
       <TableRow key={transaction.id}>

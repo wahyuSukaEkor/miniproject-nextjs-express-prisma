@@ -34,12 +34,12 @@ const TotalRevenueChart: React.FC = () => {
         if (!token) return;
 
         const past7Days = subDays(new Date(), 7).toISOString();
-        const startDate = searchParams.get("revenue_from") ?? past7Days;
+        const start_date = searchParams.get("revenue_from") ?? past7Days;
 
-        const endDate =
+        const end_date =
           searchParams.get("revenue_to") ?? new Date().toISOString();
 
-        const res = await getAdminTotalSales(token, { startDate, endDate });
+        const res = await getAdminTotalSales(token, { start_date, end_date });
         const newRes = res.result.map((item) => {
           return {
             revenue: item.revenue,

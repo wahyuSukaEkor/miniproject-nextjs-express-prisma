@@ -15,13 +15,13 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 
 type Props = {
-  transactionId: number;
+  transaction_id: number;
 };
 
 const ParticipationDetailsTable: React.FC<Props> = (props) => {
-  const { transactionId } = props;
+  const { transaction_id } = props;
   const { isPending, isError, data, error } = useTransactionDetails({
-    transactionId,
+    transaction_id,
   });
 
   if (isPending) return <Spinner className="h-20 w-20" />;
@@ -41,7 +41,7 @@ const ParticipationDetailsTable: React.FC<Props> = (props) => {
           <TableRow key={index}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>
-              <Badge className="text-nowrap">{detail.ticketCode}</Badge>
+              <Badge className="text-nowrap">{detail.ticket_code}</Badge>
             </TableCell>
           </TableRow>
         ))}

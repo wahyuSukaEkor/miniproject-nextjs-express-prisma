@@ -14,19 +14,19 @@ import TransactionDialogBody from "./transaction-dialog-body";
 import { useUpdateTransactionStatus } from "@/services/admin/mutations";
 
 type Props = {
-  transactionId: number;
+  transaction_id: number;
 };
 
 const TransactionDialogContent: React.FC<Props> = (props) => {
-  const { transactionId } = props;
+  const { transaction_id } = props;
   const updateTransactionStatus = useUpdateTransactionStatus();
 
   const handlePaymentStatus = async (
-    transactionId: number,
+    transaction_id: number,
     data: { status: "success" | "failed" },
   ) => {
     updateTransactionStatus.mutate({
-      transactionId,
+      transaction_id,
       data,
     });
   };
@@ -37,7 +37,7 @@ const TransactionDialogContent: React.FC<Props> = (props) => {
         <DialogTitle>Payment Proof</DialogTitle>
         <DialogDescription>Here&apos;s the payment proof</DialogDescription>
       </DialogHeader>
-      <TransactionDialogBody transactionId={transactionId} />
+      <TransactionDialogBody transaction_id={transaction_id} />
       <DialogFooter>
         <div className="flex items-center justify-end gap-2">
           <DialogClose asChild>
@@ -45,7 +45,7 @@ const TransactionDialogContent: React.FC<Props> = (props) => {
               type="button"
               size="sm"
               onClick={() =>
-                handlePaymentStatus(transactionId, { status: "success" })
+                handlePaymentStatus(transaction_id, { status: "success" })
               }
               className="bg-green-600 hover:bg-green-600/90"
             >
@@ -57,7 +57,7 @@ const TransactionDialogContent: React.FC<Props> = (props) => {
               type="button"
               size="sm"
               onClick={() =>
-                handlePaymentStatus(transactionId, { status: "failed" })
+                handlePaymentStatus(transaction_id, { status: "failed" })
               }
               variant="destructive"
             >

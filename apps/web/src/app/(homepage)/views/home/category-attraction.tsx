@@ -31,7 +31,7 @@ const CategoryAttractionSection: React.FunctionComponent<
     try {
       setLoading(true);
       let url = NEXT_PUBLIC_BASE_API_URL + `/events?category_id=6`;
-      if (getData.locationId) {
+      if (getData.location_id) {
         url += `&location_id=${getData.location_id}`;
       }
       const response = await axios.get(url);
@@ -82,7 +82,7 @@ const CategoryAttractionSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationid: 265,
+                  location_id: 265,
                 };
                 setGetData(newData);
                 setActiveButton("Surabaya");
@@ -96,7 +96,7 @@ const CategoryAttractionSection: React.FunctionComponent<
               onClick={(element: any) => {
                 const newData = {
                   ...getData,
-                  locationid: 364,
+                  location_id: 364,
                 };
                 setGetData(newData);
                 setActiveButton("Balikpapan");

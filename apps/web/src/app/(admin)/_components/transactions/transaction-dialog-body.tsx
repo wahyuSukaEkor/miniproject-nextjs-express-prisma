@@ -8,12 +8,12 @@ import React from "react";
 import { toast } from "sonner";
 
 type Props = {
-  transactionId: number;
+  transaction_id: number;
 };
 
 const TransactionDialogBody: React.FC<Props> = (props) => {
-  const { transactionId } = props;
-  const { isPending, isError, data, error } = useTransaction({ transactionId });
+  const { transaction_id } = props;
+  const { isPending, isError, data, error } = useTransaction({ transaction_id });
 
   if (isError) toast.error(error.message);
 
@@ -27,9 +27,9 @@ const TransactionDialogBody: React.FC<Props> = (props) => {
 
   return (
     <div className="flex h-96 items-center justify-center ">
-      {data?.result.paymentProof ? (
+      {data?.result.payment_path ? (
         <Image
-          src={NEXT_PUBLIC_BASE_API_URL + data?.result.paymentProof}
+          src={NEXT_PUBLIC_BASE_API_URL + data?.result.payment_path}
           alt="Payment Proof"
           width={576}
           height={384}
