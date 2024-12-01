@@ -21,7 +21,7 @@ const ParticipationDialogContent: React.FC<Props> = (props) => {
       <DialogHeader>
         <DialogTitle>Transaction Details</DialogTitle>
         <DialogDescription>
-          Here&apos;s the transaction details.
+          Here is the transaction details.
         </DialogDescription>
         <ParticipationDetailsTable transaction_id={transaction_id} />
       </DialogHeader>

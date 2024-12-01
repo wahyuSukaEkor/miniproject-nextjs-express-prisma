@@ -21,6 +21,7 @@ export function verifyJWTToken(token: string): any {
   return verify(token, JWT_SECRET);
 }
 
+
 export class AuthService {
   static async register(request: RegisterRequest) {
     const { email, isAdmin, password, username, referral_code } =
@@ -42,7 +43,7 @@ export class AuthService {
       if (!userByReferralCode) {
         throw new ErrorResponse(400, 'Invalid referral code!');
       } else {
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
           const currentDate = new Date();
           currentDate.setMonth(currentDate.getMonth() + 3);
 
