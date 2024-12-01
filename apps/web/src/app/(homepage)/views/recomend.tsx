@@ -45,11 +45,11 @@ const Recomend: React.FunctionComponent<IRecomendProps> = (props) => {
               <div key={index}>
                 <CardEvent
                   id={event.id}
-                  judul={event.name}
+                  judul={event.event_name}
                   lokasi={event.location.name ? event.location.name : ""}
-                  waktu={event.createdAt}
+                  waktu={event.created_at}
                   harga={event.price}
-                  urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                  urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                 />
               </div>
             ))}

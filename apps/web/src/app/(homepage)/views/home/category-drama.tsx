@@ -21,11 +21,11 @@ const CategoryDramaSection: React.FunctionComponent<
     onHandleGet();
   }, []);
   const [displayedEvents, setDisplayedEvents] = React.useState(5);
-  const filterEventDrama = event.filter((event: any) => event.categoryId === 5);
+  const filterEventDrama = event.filter((event: any) => event.category_id === 5);
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?categoryId=5";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=5";
       const response = await axios.get(url);
       setEvent(response.data.result);
     } catch (err) {
@@ -60,11 +60,11 @@ const CategoryDramaSection: React.FunctionComponent<
                   >
                     <CardFilm
                       id={event.id}
-                      judul={event.name}
+                      judul={event.event_name}
                       lokasi={event.location.name}
-                      waktu={event.createdAt}
+                      waktu={event.created_at}
                       harga={event.price}
-                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                     />
                   </div>
                 ))}

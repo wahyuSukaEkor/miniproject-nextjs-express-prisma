@@ -18,6 +18,8 @@ import { TransactionRouter } from './routers/transaction.router';
 import { VoucherRouter } from './routers/voucher.router';
 import { ReviewRouter } from './routers/review.router';
 import { UserRouter } from './routers/user.router';
+import { AuthRouter } from './routers/auth.router';
+import { AdminRouter } from './routers/admin.router';
 
 export default class App {
   private app: Express;
@@ -67,6 +69,8 @@ export default class App {
     const voucherRouter = new VoucherRouter();
     const reviewRouter = new ReviewRouter();
     const userRouter = new UserRouter();
+    const authRouter = new AuthRouter();
+    const adminRouter = new AdminRouter();
 
     //serve image
     this.app.use('/', express.static(join(__dirname, '../public')));
@@ -90,11 +94,13 @@ export default class App {
     this.app.use('/reviews', reviewRouter.getRoutes());
 
     //event orgainizer or admin
+    this.app.use('/admin', adminRouter.getRoutes());
 
     //user or particaipant attandee
     this.app.use('/user', userRouter.getRoutes());
 
     //auth
+    this.app.use('/auth', authRouter.getRoutes()); 
 
     //example
     this.app.use('/samples', sampleRouter.getRouter());

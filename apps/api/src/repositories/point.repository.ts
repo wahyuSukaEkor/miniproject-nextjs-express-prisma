@@ -7,7 +7,7 @@ export class PointRepository {
       data: {
         total_point: data.balance,
         expired_date: data.expiryDate,
-        user: { connect: { user_id: user_id } },
+        user: { connect: { id: user_id } },
       },
     });
   }

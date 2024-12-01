@@ -8,7 +8,7 @@ export const MobileMenuDashboard: React.FC = () => {
     <nav className="grid gap-2 text-lg font-medium">
       <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
         <Package2 className="h-6 w-6" />
-        <span className="sr-only">Ngivent</span>
+        <span className="sr-only">TIKETAKTI</span>
       </Link>
       <MenuLinkDashboard />
     </nav>

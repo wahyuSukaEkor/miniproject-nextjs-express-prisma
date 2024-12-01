@@ -30,7 +30,7 @@ import { toast } from "sonner";
 
 interface IBayarPageProps {
   points: {
-    balance: number;
+    total_point: number;
   };
 }
 
@@ -58,13 +58,13 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
       const updatedTransaction = {
         ...prev,
         eventId: Number(id.eventId),
-        redeemedPoints: switchOn ? point : 0,
+        point_used: switchOn ? point : 0,
       };
 
       if (selectedVoucher !== null) {
-        updatedTransaction.voucherId = selectedVoucherDetails.id;
+        updatedTransaction.voucer_id = selectedVoucherDetails.id;
       } else {
-        delete updatedTransaction.voucherId;
+        delete updatedTransaction.voucer_id;
       }
 
       return updatedTransaction;
@@ -81,20 +81,20 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
       for (let i = 0; i < UserProfile.result.vouchers.length; i++) {
         if (
           UserProfile.result.vouchers[i].usage <
-          UserProfile.result.vouchers[i].maxUsage
+          UserProfile.result.vouchers[i].max_usage
         ) {
           voucherAfterFilter.push(UserProfile.result.vouchers[i]);
         }
       }
       setEvent({
         ...response.data.result[0],
-        startDate: formatDateTime(response.data.result[0].startDate),
+        start_date: formatDateTime(response.data.result[0].start_date),
       });
       setTotalPayment(
         response.data.result[0].price * dataTransaction.seatRequests,
       );
       setVoucher(voucherAfterFilter);
-      setPoint(UserProfile.result.point.balance);
+      setPoint(UserProfile.result.point.total_point);
       console.log("TESTING", response.data.result[0]);
     } catch (err) {
       console.log("Error fetching profile:", err);
@@ -113,7 +113,7 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
       for (let i = 0; i < creatorResponse.data.result.length; i++) {
         if (
           creatorResponse.data.result[i].usage <
-          creatorResponse.data.result[i].maxUsage
+          creatorResponse.data.result[i].max_usage
         ) {
           voucherAfterFilterCreator.push(creatorResponse.data.result[i]);
         }
@@ -125,11 +125,11 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
   };
 
   //Handle Voucher Select
-  const handleSelectVoucher = (voucherId: any) => {
+  const handleSelectVoucher = (voucer_id: any) => {
     const selected = [...creatorVoucher, ...voucher].find(
-      (value) => value.id === Number(voucherId),
+      (value) => value.id === Number(voucer_id),
     );
-    setSelectedVoucher(selected ? Number(voucherId) : null);
+    setSelectedVoucher(selected ? Number(voucer_id) : null);
     setSelectedVoucherDetails(selected || null);
   };
   // Handle Switch Change
@@ -238,17 +238,18 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
         <div className=" relative mx-[10px] flex flex-col pb-[11vh] md:mx-0 md:pb-0">
           <div className="ml-0 mt-[24px] h-auto w-full rounded-lg bg-white  p-[20px] shadow md:fixed md:ml-[48px]  md:h-auto md:w-[392px]">
             <div className=" flex">
-              {event.imageURL && (
+              {event.thumbnails_path && (
                 <Image
                   className="h-[40px] w-[40px] rounded-md "
-                  src={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                  src={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                   width={236}
                   height={148}
                   alt=""
                 />
               )}
+              
               <div className="flex items-center overflow-hidden  overflow-ellipsis whitespace-nowrap px-2">
-                <p className=" text-[14px] font-semibold">{event.name}</p>
+                <p className=" text-[14px] font-semibold">{event.event_name}</p>
               </div>
             </div>
             <div id="stroke" className=" mt-[10px] border"></div>
@@ -261,7 +262,7 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
             <div id="stroke" className=" border "></div>
             <div className="my-[24px] space-y-3  text-[12px] text-gray-800">
               <h1>Event date</h1>
-              <h1 className="text-[14px] text-black">{event.startDate}</h1>
+              <h1 className="text-[14px] text-black">{event.start_date}</h1>
             </div>
             <div id="stroke" className=" border "></div>
             <div className="my-[24px] space-y-3  text-[12px] text-gray-800">

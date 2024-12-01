@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 interface IHeroDetailsProps {
   data: {
-    imageURL: string;
+    thumbnails_path: string;
   };
 }
 
@@ -17,7 +17,7 @@ const HeroDetails: React.FunctionComponent<IHeroDetailsProps> = (props) => {
       <div className=" relative">
         <Image
           className="mx-auto flex h-[250px] w-full flex-col bg-cover bg-center md:h-[555px]  md:w-fit"
-          src={ props.data.imageURL}
+          src={ props.data.thumbnails_path}
           width={555}
           height={1400}
           alt=""

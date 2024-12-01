@@ -80,9 +80,9 @@ export function EventDataTable<TData, TValue>({
         <div className="flex flex-1 items-center space-x-2">
           <Input
             placeholder="Search name..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            value={(table.getColumn("event_name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("event_name")?.setFilterValue(event.target.value)
             }
             className="h-8 w-[250px] lg:w-[300px]"
           />

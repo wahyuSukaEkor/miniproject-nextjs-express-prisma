@@ -34,12 +34,12 @@ const TransactionChart: React.FC = () => {
         if (!token) return;
 
         const past7Days = subDays(new Date(), 7).toISOString();
-        const startDate = searchParams.get("transaction_from") ?? past7Days;
+        const start_date = searchParams.get("transaction_from") ?? past7Days;
 
-        const endDate =
+        const end_date =
           searchParams.get("transaction_to") ?? new Date().toISOString();
 
-        const res = await getTransactionStatus(token, { startDate, endDate });
+        const res = await getTransactionStatus(token, { start_date, end_date });
         const newRes = res.result.map((item) => {
           return {
             ...item,

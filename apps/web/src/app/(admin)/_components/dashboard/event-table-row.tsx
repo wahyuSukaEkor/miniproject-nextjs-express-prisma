@@ -10,7 +10,7 @@ import LoadingTableRow from "./loading-table-row";
 
 const EventTableRow: React.FC = () => {
   const { isPending, isError, data, error } = useAdminEvents({
-    pagination: { page: 1, limit: 3, sort_by: "createdAt", order_by: "desc" },
+    pagination: { page: 1, limit: 3, sort_by: "created_at", order_by: "desc" },
   });
 
   if (isPending) return <LoadingTableRow />;
@@ -38,7 +38,7 @@ const EventTableRow: React.FC = () => {
 
   return data?.result.map((event) => (
     <TableRow key={event.id}>
-      <TableCell className="font-medium">{event.name}</TableCell>
+      <TableCell className="font-medium">{event.event_name}</TableCell>
       <TableCell className="text-right">
         {!event.price ? <Badge>Free</Badge> : formatPrice(event.price)}
       </TableCell>

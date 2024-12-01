@@ -13,9 +13,9 @@ interface IDescriptionDetaillProps {
     };
     name: string;
     category: {
-      name: string;
+      category_name: string;
     };
-    startDate: string;
+    start_date: string;
     user: {
       username: string;
     };
@@ -41,13 +41,13 @@ const DescriptionDetaill: React.FunctionComponent<IDescriptionDetaillProps> = (
           <div className=" flex items-center">
             <MdOutlineDateRange className=" h-[20px] w-[20px] text-[#aeb2be] md:h-[24px] md:w-[24px]" />
             <p className="mx-[12px]  text-[14px] md:text-[14px]">
-              {props.data.startDate}
+              {props.data.start_date}
             </p>
           </div>
           <div className=" flex items-center">
             <BiBookmarks className=" h-[20px] w-[20px] text-[#aeb2be] md:h-[24px] md:w-[24px]" />
             <p className="mx-[12px]  text-[14px] md:text-[14px]">
-              {props.data.category?.name}
+              {props.data.category?.category_name}
             </p>
           </div>
           <div className=" flex items-center">

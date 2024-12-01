@@ -15,7 +15,7 @@ const CategorySeminarSection: React.FunctionComponent<
 > = (props) => {
   const [activeButton, setActiveButton] = React.useState("Online");
   const [getData, setGetData] = React.useState<any>({
-    locationId: 0,
+    location_id: 0,
   });
   const [event, setEvent] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -29,9 +29,9 @@ const CategorySeminarSection: React.FunctionComponent<
     try {
       setLoading(true);
 
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?categoryId=4";
-      if (getData.locationId) {
-        url += `&locationId=${getData.locationId}`;
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=4";
+      if (getData.location_id) {
+        url += `&location_id=${getData.location_id}`;
       }
       const response = await axios.get(url);
       setEvent(response.data.result);
@@ -43,7 +43,7 @@ const CategorySeminarSection: React.FunctionComponent<
     }
   };
   const filterEventSeminar = event.filter(
-    (event: any) => (event.categoryId = 4),
+    (event: any) => (event.category_id = 4),
   );
   return (
     <section
@@ -66,7 +66,7 @@ const CategorySeminarSection: React.FunctionComponent<
             onClick={(element: any) => {
               const newData = {
                 ...getData,
-                locationId: 0,
+                location_id: 0,
               };
               setGetData(newData);
               setActiveButton("All");
@@ -80,7 +80,7 @@ const CategorySeminarSection: React.FunctionComponent<
             onClick={(element: any) => {
               const newData = {
                 ...getData,
-                locationId: 1,
+                location_id: 1,
               };
               setGetData(newData);
               setActiveButton("Online");
@@ -94,7 +94,7 @@ const CategorySeminarSection: React.FunctionComponent<
             onClick={(element: any) => {
               const newData = {
                 ...getData,
-                locationId: 364,
+                location_id: 364,
               };
               setGetData(newData);
               setActiveButton("Balikpapan");
@@ -108,7 +108,7 @@ const CategorySeminarSection: React.FunctionComponent<
             onClick={(element: any) => {
               const newData = {
                 ...getData,
-                locationId: 283,
+                location_id: 283,
               };
               setGetData(newData);
               setActiveButton("Denpasar");
@@ -130,11 +130,11 @@ const CategorySeminarSection: React.FunctionComponent<
                   <div key={index}>
                     <CardEvent
                       id={event.id}
-                      judul={event.name}
+                      judul={event.event_name}
                       lokasi={event.location.name}
-                      waktu={event.endDate}
+                      waktu={event.end_date}
                       harga={event.price}
-                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.imageURL}
+                      urlImage={NEXT_PUBLIC_BASE_API_URL + event.thumbnails_path}
                     />
                   </div>
                 ))}

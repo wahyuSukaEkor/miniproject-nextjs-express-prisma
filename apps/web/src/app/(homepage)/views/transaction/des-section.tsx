@@ -30,7 +30,7 @@ const DesSection: React.FunctionComponent<IDesSectionProps> = (props) => {
       const response = await axios.get(url);
       setEvent({
         ...response.data.result[0],
-        startDate: formatDate(response.data.result[0].startDate),
+        start_date: formatDate(response.data.result[0].start_date),
       });
     } catch (err) {
       console.log("Error fetching event data:", err);
@@ -48,7 +48,7 @@ const DesSection: React.FunctionComponent<IDesSectionProps> = (props) => {
       <div className="  mt-[24px] h-auto w-full rounded-lg bg-white p-[20px]   shadow md:static md:ml-[120px] md:w-[828px] md:px-[28px] md:py-[28px] ">
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger>{event.name}</AccordionTrigger>
+            <AccordionTrigger>{event.event_name}</AccordionTrigger>
             <AccordionContent>
               <div className=" mt-[10px] space-y-[14px]">
                 <div className=" flex items-center">
@@ -60,13 +60,13 @@ const DesSection: React.FunctionComponent<IDesSectionProps> = (props) => {
                 <div className=" flex items-center">
                   <MdOutlineDateRange className=" h-[20px] w-[20px] text-[#aeb2be] md:h-[24px] md:w-[24px]" />
                   <p className="mx-[12px] text-[14px] md:mx-[30px] md:text-[12px]">
-                    {event.startDate}
+                    {event.start_date}
                   </p>
                 </div>
                 <div className=" flex items-center">
                   <BiBookmarks className=" h-[20px] w-[20px] text-[#aeb2be] md:h-[24px] md:w-[24px]" />
                   <p className="mx-[12px] text-[14px] md:mx-[30px] md:text-[12px]">
-                    {event.category?.name}
+                    {event.category?.category_name}
                   </p>
                 </div>
                 <div className=" flex items-center">

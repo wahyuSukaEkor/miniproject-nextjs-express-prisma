@@ -70,10 +70,10 @@ export const participationColumns: ColumnDef<AdminTotalParticipationResponse>[] 
       },
     },
     {
-      accessorKey: "paymentStatus",
+      accessorKey: "payment_status",
       header: "Payment Status",
       cell: ({ row }) => {
-        const status: PaymentStatus = row.getValue("paymentStatus");
+        const status: PaymentStatus = row.getValue("payment_status");
         return (
           <div>
             {status === "waiting" && (
@@ -91,7 +91,7 @@ export const participationColumns: ColumnDef<AdminTotalParticipationResponse>[] 
       },
     },
     {
-      accessorKey: "createdAt",
+      accessorKey: "created_at",
       header: ({ column }) => {
         return (
           <Button
@@ -105,7 +105,7 @@ export const participationColumns: ColumnDef<AdminTotalParticipationResponse>[] 
         );
       },
       cell: ({ row }) => {
-        const date: string = row.getValue("createdAt");
+        const date: string = row.getValue("created_at");
         return (
           <div className="text-nowrap font-medium">{formatDateTime(date)}</div>
         );
@@ -124,7 +124,7 @@ export const participationColumns: ColumnDef<AdminTotalParticipationResponse>[] 
                 Show
               </Button>
             </DialogTrigger>
-            <ParticipationDialogContent transactionId={item.transactionId} />
+            <ParticipationDialogContent transaction_id={item.transaction_id} />
           </Dialog>
         );
       },
