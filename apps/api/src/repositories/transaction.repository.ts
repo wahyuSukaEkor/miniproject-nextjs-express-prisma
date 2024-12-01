@@ -103,13 +103,13 @@ export class TransactionRepository {
     filter: { gte: Date | string; lte: Date | string },
   ): Promise<TotalSaleResponse[]> {
     const query = Prisma.sql`
-    SELECT DATE(transactions.updatedAt) as date,
-      SUM(CASE WHEN transactions.discountedAmount IS NULL THEN transactions.originalAmount ELSE transactions.discountedAmount END) as revenue
+    SELECT DATE(transactions.updated_at) as date,
+      SUM(CASE WHEN transactions. discounted_price IS NULL THEN transactions.base_price ELSE transactions. discounted_price END) as revenue
     FROM transactions
     JOIN events ON events.id = transactions.eventId
-    WHERE events.userId = ${id}
+    WHERE events.user_id = ${id}
       AND transactions.payment_status = 'success'
-      AND transactions.updatedAt BETWEEN ${filter.gte} AND ${filter.lte}
+      AND transactions.updated_at BETWEEN ${filter.gte} AND ${filter.lte}
     GROUP BY date
     ORDER BY date ASC
     ;`;
@@ -123,14 +123,14 @@ export class TransactionRepository {
   ): Promise<StatusResponse[]> {
     const query = Prisma.sql`
     SELECT
-      DATE(transactions.updatedAt) as date,
+      DATE(transactions.updated_at) as date,
       SUM(CASE WHEN transactions.payment_status = 'waiting' THEN 1 ELSE 0 END) as waiting,
       SUM(CASE WHEN transactions.payment_status = 'paid' THEN 1 ELSE 0 END) as paid,
       SUM(CASE WHEN transactions.payment_status = 'success' THEN 1 ELSE 0 END) as success,
       SUM(CASE WHEN transactions.payment_status = 'failed' THEN 1 ELSE 0 END) as failed
     FROM transactions
     JOIN events ON events.id = transactions.eventId
-    WHERE events.userId = ${id}
+    WHERE events.user_id = ${id}
       AND transactions.updatedAt BETWEEN ${filter.gte} AND ${filter.lte}
     GROUP BY date
     ORDER BY date ASC
@@ -139,26 +139,26 @@ export class TransactionRepository {
     return await prisma.$queryRaw(query);
   }
 
-  static async getTransactionHasUser(transactionId: number) {
+  static async getTransactionHasUser(transaction_id: number) {
     return await prisma.transaction.findUnique({
-      where: { id: transactionId },
+      where: { id: transaction_id },
       include: { event: { include: { user: true } } },
     });
   }
 
   static async updateTransactionStatus(
-    transactionId: number,
+    transaction_id: number,
     status: PaymentStatus,
   ) {
     return await prisma.transaction.update({
-      where: { id: transactionId },
+      where: { id: transaction_id },
       data: { payment_status: status },
     });
   }
 
-  static async checkoutUser(transactionId: number, file: Express.Multer.File) {
+  static async checkoutUser(transaction_id: number, file: Express.Multer.File) {
     await prisma.transaction.update({
-      where: { id: transactionId },
+      where: { id: transaction_id },
       data: {
         payment_status: PaymentStatus.PAID,
         payment_path: `/assets/events/${file}`,
@@ -167,11 +167,11 @@ export class TransactionRepository {
   }
 
   static async postPaidCheckout(
-    transactionId: number,
+    transaction_id: number,
     file: Express.Multer.File,
   ) {
     await prisma.transaction.update({
-      where: { id: Number(transactionId) },
+      where: { id: Number(transaction_id) },
       data: {
         payment_status: PaymentStatus.PAID,
         payment_path: `/assets/transactions/${file.filename}`,
@@ -179,9 +179,9 @@ export class TransactionRepository {
     });
   }
 
-  static async getDataCheckout(transactionId: number) {
+  static async getDataCheckout(transaction_id: number) {
     return await prisma.transaction.findUnique({
-      where: { id: Number(transactionId) },
+      where: { id: Number(transaction_id) },
       include: { event: true },
     });
   }
