@@ -1,5 +1,5 @@
 export type TransactionCheckout = {
-  paymentStatus: PaymentStatus;
+  payment_status: PaymentStatus;
 };
 
 export enum PaymentStatus {

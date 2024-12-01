@@ -62,7 +62,7 @@ const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="rounded-full text-white hover:bg-gray-800"
+                  className="rounded-full text-slate-500 hover:bg-gray-800"
                 >
                   <CircleUser className="h-5 w-5" />
                   <span className="sr-only">Toggle user menu</span>
@@ -123,7 +123,7 @@ const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
                     {adminToken && (
                       <Link
                         href={`/dashboard`}
-                        className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
+                        className="block w-full text-sm text-red-50 hover:bg-gray-800 py-2 px-4 rounded-md"
                       >
                         Dashboard
                       </Link>
@@ -131,7 +131,7 @@ const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
                     {userToken && (
                       <Link
                         href={`/my-event`}
-                        className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
+                        className="block w-full text-sm text-white-300 hover:bg-gray-800 py-2 px-4 rounded-md"
                       >
                         My Events
                       </Link>

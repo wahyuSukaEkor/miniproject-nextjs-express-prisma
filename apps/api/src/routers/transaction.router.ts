@@ -47,7 +47,7 @@ export class TransactionRouter {
     );
 
     this.router.patch(
-      '/:transactionId',
+      '/:transaction_id',
       verifyToken,
       userGuard,
       uploader('/transactions', 'TRANS').single('image'),

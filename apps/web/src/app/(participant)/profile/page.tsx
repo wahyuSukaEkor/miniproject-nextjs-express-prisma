@@ -32,19 +32,19 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
     try {
       const UserProfile = await getUserProfile(Cookies.get("user-tkn")!);
       let voucherAfterFilter = [];
-      for (let i = 0; i < UserProfile.result.vouchers.length; i++) {
+      for (let i = 0; i < UserProfile.result.Voucher.length; i++) {
         if (
-          UserProfile.result.vouchers[i].usage <
-          UserProfile.result.vouchers[i].max_usage
+          UserProfile.result.Voucher[i].usage <
+          UserProfile.result.Voucher[i].max_usage
         ) {
-          voucherAfterFilter.push(UserProfile.result.vouchers[i]);
+          voucherAfterFilter.push(UserProfile.result.Voucher[i]);
         }
       }
 
       const userPoint = UserProfile.result.point?.balance || 0
       setPoint(userPoint);
-      setVoucher(UserProfile.result.vouchers);
-      setReferalCode(UserProfile.result.referralCode);
+      setVoucher(UserProfile.result.Voucher);
+      setReferalCode(UserProfile.result.referral_code);
       setDataUser(UserProfile.result);
       console.log("TESTING", UserProfile.result);
     } catch (err) {

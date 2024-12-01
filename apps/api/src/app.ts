@@ -12,6 +12,7 @@ import { PORT } from './config';
 import { SampleRouter } from './routers/sample.router';
 import { join } from 'path';
 import { EventRouter } from './routers/event.router';
+import { ErrorMiddleware } from './middlewares/error.middleware';
 import { LocationRouter } from './routers/location.router';
 import { CategoryRouter } from './routers/category.router';
 import { TransactionRouter } from './routers/transaction.router';
@@ -29,6 +30,7 @@ export default class App {
     this.configure();
     this.routes();
     this.handleError();
+    this.handleErrorExample();
   }
 
   private configure(): void {
@@ -37,7 +39,13 @@ export default class App {
     this.app.use(urlencoded({ extended: true }));
   }
 
-  private handleError(): void {
+
+  private handleError(): void{
+    this.app.use(ErrorMiddleware)
+  }
+
+
+  private handleErrorExample(): void {
     // not found
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       if (req.path.includes('/api/')) {
