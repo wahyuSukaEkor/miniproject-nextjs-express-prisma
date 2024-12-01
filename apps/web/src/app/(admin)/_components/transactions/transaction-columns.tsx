@@ -30,7 +30,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
     },
   },
   {
-    accessorKey: "discountedAmount",
+    accessorKey: "discounted_price",
     header: ({ column }) => {
       return (
         <Button
@@ -44,13 +44,13 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const amount: number =
-        row.getValue("discountedAmount") ?? row.getValue("originalAmount");
-      return <div>{!amount ? <Badge>Free</Badge> : formatPrice(amount)}</div>;
+      const base_price: number =
+        row.getValue("discounted_price") ?? row.getValue("total_price");
+      return <div>{!base_price ? <Badge>Free</Badge> : formatPrice(base_price)}</div>;
     },
   },
   {
-    accessorKey: "originalAmount",
+    accessorKey: "total_price",
     header: ({ column }) => {
       return (
         <Button
@@ -64,12 +64,12 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const amount: number = row.getValue("originalAmount");
-      return <div>{!amount ? <Badge>Free</Badge> : formatPrice(amount)}</div>;
+      const base_price: number = row.getValue("total_price");
+      return <div>{!base_price ? <Badge>Free</Badge> : formatPrice(base_price)}</div>;
     },
   },
   {
-    accessorKey: "redeemedPoints",
+    accessorKey: "point_used",
     header: ({ column }) => {
       return (
         <Button
@@ -83,7 +83,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const points: number = row.getValue("redeemedPoints");
+      const points: number = row.getValue("point_used");
       return (
         <div>
           {!points ? (
@@ -116,7 +116,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
     accessorKey: "paymentStatus",
     header: "Payment Status",
     cell: ({ row }) => {
-      const status: PaymentStatus = row.getValue("paymentStatus");
+      const status: PaymentStatus = row.getValue("payment_status");
       return (
         <div>
           {status === "waiting" && (
@@ -134,7 +134,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
     },
   },
   {
-    accessorKey: "updatedAt",
+    accessorKey: "updated_at",
     header: ({ column }) => {
       return (
         <Button
@@ -148,12 +148,12 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
       );
     },
     cell: ({ row }) => {
-      const date: string = row.getValue("updatedAt");
+      const date: string = row.getValue("updated_at");
       return <div className="text-nowrap font-medium">{formatDate(date)}</div>;
     },
   },
   {
-    id: "paymentProof",
+    id: "payment_path",
     header: "Payment Proof",
     cell: ({ row }) => {
       const item = row.original;
@@ -165,7 +165,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
               Show
             </Button>
           </DialogTrigger>
-          <TransactionDialogContent transactionId={item.id} />
+          <TransactionDialogContent transaction_id={item.id} />
         </Dialog>
       );
     },

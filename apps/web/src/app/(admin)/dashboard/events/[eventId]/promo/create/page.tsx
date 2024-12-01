@@ -26,7 +26,7 @@ const CreatePromoSection: React.FunctionComponent<ICreatePromoSectionProps> = (
 
   const [dataDiscount, setDataDiscount] = React.useState<any>({
     name: "",
-    maxUsage: 0,
+    max_usage: 0,
     discount: 0,
   });
 
@@ -44,7 +44,7 @@ const CreatePromoSection: React.FunctionComponent<ICreatePromoSectionProps> = (
         url,
         {
           name: dataDiscount.name,
-          maxUsage: dataDiscount.maxUsage,
+          max_usage: dataDiscount.max_usage,
           discount: dataDiscount.discount,
           eventId: Number(id.eventId),
         },
@@ -91,7 +91,7 @@ const CreatePromoSection: React.FunctionComponent<ICreatePromoSectionProps> = (
                     onChange={(element: any) => {
                       const newData = {
                         ...dataDiscount,
-                        maxUsage: Number(element.target.value),
+                        max_usage: Number(element.target.value),
                       };
                       setDataDiscount(newData);
                     }}
@@ -99,7 +99,7 @@ const CreatePromoSection: React.FunctionComponent<ICreatePromoSectionProps> = (
                 </div>
                 <div>
                   <h4>
-                    Discount <span className=" text-[8px]">dalam persen</span>
+                    Discount? <span className=" text-[8px]">dalam persen</span>
                   </h4>
                   <Input
                     placeholder="30"

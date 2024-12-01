@@ -10,11 +10,11 @@ import {
 import ParticipationDetailsTable from "./participation-details-table";
 
 type Props = {
-  transactionId: number;
+  transaction_id: number;
 };
 
 const ParticipationDialogContent: React.FC<Props> = (props) => {
-  const { transactionId } = props;
+  const { transaction_id } = props;
 
   return (
     <DialogContent className="sm:max-w-[425px]">
@@ -23,7 +23,7 @@ const ParticipationDialogContent: React.FC<Props> = (props) => {
         <DialogDescription>
           Here&apos;s the transaction details.
         </DialogDescription>
-        <ParticipationDetailsTable transactionId={transactionId} />
+        <ParticipationDetailsTable transaction_id={transaction_id} />
       </DialogHeader>
     </DialogContent>
   );

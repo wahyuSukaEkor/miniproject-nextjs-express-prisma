@@ -50,7 +50,7 @@ const PromoSection: React.FunctionComponent<IPromoSectionProps> = (props) => {
             {promo.name.toUpperCase()}
           </TableCell>
           <TableCell className="font-medium">{promo.discount}</TableCell>
-          <TableCell className="font-medium">{promo.maxUsage}</TableCell>
+          <TableCell className="font-medium">{promo.max_usage}</TableCell>
           <TableCell className="font-medium">{promo.usage}</TableCell>
         </TableRow>
       );

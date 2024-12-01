@@ -30,7 +30,7 @@ const CategoryMusikSection: React.FunctionComponent<
     try {
       setLoading(true);
       let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=2";
-      if (getData.locationId) {
+      if (getData.location_id) {
         url += `&location_id=${getData.location_id}`;
       }
       const response = await axios.get(url);

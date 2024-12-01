@@ -35,9 +35,9 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
   // HANDLE GLOBAL
   const [transaction, setTransaction] = React.useState<any>({
     seatRequests: 1,
-    redeemedPoints: 0,
+    point_used: 0,
     eventId: 0,
-    voucherId: 0,
+    voucher_id: 0,
   });
   React.useEffect(() => {
     getEventById();
@@ -50,7 +50,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
       const newQuantity =
         counter === "+" ? currentQuantity + 1 : currentQuantity - 1;
 
-      if (newQuantity > event.limitCheckout) {
+      if (newQuantity > event.buy_limit) {
         return previewTransaction;
       }
       const newQuantityString = (newQuantity < 1 ? 1 : newQuantity).toString();
@@ -58,7 +58,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
       return {
         ...previewTransaction,
         seatRequests: newQuantityString,
-        redeemedPoints: 0,
+        point_used: 0,
         eventId: 0,
         voucherId: 0,
       };

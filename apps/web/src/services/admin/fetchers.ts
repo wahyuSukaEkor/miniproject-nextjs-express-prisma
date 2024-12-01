@@ -47,11 +47,11 @@ export const getAdminEvents = async (token: string, pagination: Pagination) => {
 
 export const updateTransactionStatus = async (
   token: string,
-  transactionId: number,
+  transaction_id: number,
   data: { status: string },
 ) => {
   const res = await axios.patch<ResponseWithoutData>(
-    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transactionId}/status`,
+    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transaction_id}/status`,
     data,
     { headers: { Authorization: `Bearer ${token}` } },
   );
@@ -77,9 +77,9 @@ export const getEventParticipation = async (
   return res.data;
 };
 
-export const getTransaction = async (token: string, transactionId: number) => {
+export const getTransaction = async (token: string, transaction_id: number) => {
   const res = await axios.get<ResponseWithData<TransactionResponse>>(
-    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transactionId}`,
+    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transaction_id}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
@@ -88,10 +88,10 @@ export const getTransaction = async (token: string, transactionId: number) => {
 
 export const getTransactionDetails = async (
   token: string,
-  transactionId: number,
+  transaction_id: number,
 ) => {
   const res = await axios.get<ResponseWithData<transactionDetailResponse[]>>(
-    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transactionId}/details`,
+    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transaction_id}/details`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 

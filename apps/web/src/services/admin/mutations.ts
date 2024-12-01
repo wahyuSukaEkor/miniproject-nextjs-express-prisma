@@ -10,12 +10,12 @@ export const useUpdateTransactionStatus = () => {
 
   return useMutation({
     mutationFn: ({
-      transactionId,
+      transaction_id,
       data,
     }: {
-      transactionId: number;
+      transaction_id: number;
       data: { status: string };
-    }) => updateTransactionStatus(token!, transactionId, data),
+    }) => updateTransactionStatus(token!, transaction_id, data),
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["adminEventTransactions"] });

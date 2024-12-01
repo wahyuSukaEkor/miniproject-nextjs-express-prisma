@@ -32,19 +32,19 @@ const ParticipantForm: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      referralCode: "",
+      referal_code: "",
     },
   });
 
   const onSubmit = async (values: ParticipantSchema) => {
-    const { email, password, username, referralCode } = values;
+    const { email, password, username, referal_code } = values;
 
     try {
       const promise = registerUser({
         email,
         password,
         username,
-        referralCode: !referralCode.length ? undefined : referralCode,
+        referral_code: !referal_code.length ? undefined : referal_code,
         isAdmin: false,
       });
 
@@ -109,11 +109,11 @@ const ParticipantForm: React.FC = () => {
             error={errors.confirmPassword}
           />
           <InputForm
-            id="referralCode"
+            id="referal_code"
             label="Referral Code"
             type="text"
             register={register}
-            error={errors.referralCode}
+            error={errors.referal_code}
           />
         </CardContent>
         <CardFooter className="flex-col gap-4 ">

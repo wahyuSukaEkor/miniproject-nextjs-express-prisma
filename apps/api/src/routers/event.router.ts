@@ -18,8 +18,8 @@ export class EventRouter {
 
     this.router.post(
       '/',
-      // verifyToken,
-      // adminGuard,
+      verifyToken,
+      adminGuard,
       uploader('/events', 'EVENT').single('image'),
       this.eventController.createEvent,
     );

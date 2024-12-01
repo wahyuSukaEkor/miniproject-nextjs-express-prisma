@@ -11,8 +11,8 @@ interface ITicketProps {
   data: {
     id: number;
     price: number;
-    availableSeats: number;
-    maxCapacity: number;
+    available_seats: number;
+    max_capacity: number;
   };
 }
 
@@ -70,8 +70,8 @@ const Ticket: React.FunctionComponent<ITicketProps> = (props) => {
             ></div>
             <div className=" flex items-center justify-between py-[18px] text-[14px] md:text-[14px]">
               <p>
-                Available Seat : {props.data.availableSeats} /{" "}
-                {props.data.maxCapacity}
+                Available Seat : {props.data.available_seats} /{" "}
+                {props.data.max_capacity}
               </p>
               <Link href={`/transaction/${props.id}`}>
                 <ButtonBeliDes />
