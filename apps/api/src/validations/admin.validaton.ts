@@ -4,10 +4,10 @@ import { z } from 'zod';
 const EventSortEnum = [
   'name',
   'price',
-  'availableSeats',
-  'startDate',
-  'endDate',
-  'createdAt',
+  'available_seats',
+  'start_date',
+  'end_date',
+  'created_at',
 ] as const;
 
 export class AdminValidation {
@@ -41,8 +41,8 @@ export class AdminValidation {
       .int({ message: 'Limit must be an integer' })
       .optional(),
     sort_by: z
-      .enum(['createdAt'], {
-        message: `Sort only allow: 'createdAt'`,
+      .enum(['created_at'], {
+        message: `Sort only allow: 'created_at'`,
       })
       .optional(),
     order_by: z

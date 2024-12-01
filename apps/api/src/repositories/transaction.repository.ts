@@ -104,7 +104,7 @@ export class TransactionRepository {
   ): Promise<TotalSaleResponse[]> {
     const query = Prisma.sql`
     SELECT DATE(transactions.updated_at) as date,
-      SUM(CASE WHEN transactions. discounted_price IS NULL THEN transactions.base_price ELSE transactions. discounted_price END) as revenue
+      SUM(CASE WHEN transactions.discounted_price IS NULL THEN transactions.base_price ELSE transactions. discounted_price END) as revenue
     FROM transactions
     JOIN events ON events.id = transactions.eventId
     WHERE events.user_id = ${id}
@@ -131,7 +131,7 @@ export class TransactionRepository {
     FROM transactions
     JOIN events ON events.id = transactions.eventId
     WHERE events.user_id = ${id}
-      AND transactions.updatedAt BETWEEN ${filter.gte} AND ${filter.lte}
+      AND transactions.updated_at BETWEEN ${filter.gte} AND ${filter.lte}
     GROUP BY date
     ORDER BY date ASC
     ;`;

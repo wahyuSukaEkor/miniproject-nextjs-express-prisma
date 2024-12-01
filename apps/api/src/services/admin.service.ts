@@ -64,7 +64,7 @@ export class AdminService {
 
     if (!eventQuery.page) eventQuery.page = 1;
     if (!eventQuery.limit) eventQuery.limit = 10;
-    if (!eventQuery.sort_by) eventQuery.sort_by = 'createdAt';
+    if (!eventQuery.sort_by) eventQuery.sort_by = 'created_at';
     if (!eventQuery.order_by) eventQuery.order_by = 'desc';
 
     const eventTransactions = await TransactionRepository.getEventTransactions(
