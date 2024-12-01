@@ -1,4 +1,4 @@
 export type CreatePoint = {
-  balance: number;
-  expiryDate: Date;
+  total_point: number;
+  expired_date: Date;
 };

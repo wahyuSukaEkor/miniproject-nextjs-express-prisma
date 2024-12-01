@@ -6,7 +6,7 @@ import AuthPosterRegis from "../_components/auth-poster-regis";
 const SignUpPage: React.FC = () => {
   return (
     <section id="sign-up" className="flex items-center justify-center">
-      <AuthPosterRegis image={placeholder} name="Sign Up Poster" />
+      <AuthPosterRegis name="Sign Up Poster" />
       <SignUpForm />
     </section>
   );

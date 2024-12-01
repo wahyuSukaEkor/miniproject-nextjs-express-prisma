@@ -29,7 +29,7 @@ export class AdminService {
 
     if (!adminEventQuery.page) adminEventQuery.page = 1;
     if (!adminEventQuery.limit) adminEventQuery.limit = 10;
-    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'createdAt';
+    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'created_at';
     if (!adminEventQuery.order_by) adminEventQuery.order_by = 'desc';
 
     const user = await UserRepository.getAdminEvents(id, adminEventQuery);
@@ -147,12 +147,12 @@ export class AdminService {
 
   static async updateAdminTransactionStatus(
     id: number,
-    transactionId: string,
+    transaction_id: string,
     request: TransactionStatus,
   ) {
     const newTransactionId = Validation.validate(
       TransactionValidation.TRANSACTION_ID,
-      transactionId,
+      transaction_id,
     );
     const { status } = Validation.validate(
       AdminValidation.UPDATE_TRANSACTION_STATUS,
@@ -183,10 +183,10 @@ export class AdminService {
 
   static async getAdminEventParticipations(
     id: number,
-    event_id: string,
+    eventId: string,
     query: AdminEventQuery,
   ) {
-    const newEventId = Validation.validate(EventValidation.EVENT_ID, event_id);
+    const newEventId = Validation.validate(EventValidation.EVENT_ID, eventId);
     const adminEventQuery = Validation.validate(
       AdminValidation.EVENT_QUERY,
       query,
@@ -194,7 +194,7 @@ export class AdminService {
 
     if (!adminEventQuery.page) adminEventQuery.page = 1;
     if (!adminEventQuery.limit) adminEventQuery.limit = 10;
-    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'createdAt';
+    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'created_at';
     if (!adminEventQuery.order_by) adminEventQuery.order_by = 'desc';
 
     const event =
@@ -228,7 +228,7 @@ export class AdminService {
     });
 
     const allEventTransactions = await EventRepository.countEventTransactions(
-      Number(event_id),
+      Number(eventId),
     );
 
     return responseDataWithPagination(
@@ -241,10 +241,10 @@ export class AdminService {
     );
   }
 
-  static async getTransaction(id: number, transactionId: string) {
+  static async getTransaction(id: number, transaction_id: string) {
     const newTransactionId = Validation.validate(
       TransactionValidation.TRANSACTION_ID,
-      transactionId,
+      transaction_id,
     );
 
     const transaction = await TransactionRepository.getTransactionHasUser(

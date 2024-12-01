@@ -1,31 +1,25 @@
-import Image, { StaticImageData } from "next/image";
 import React from "react";
 
 type Props = {
-  image: StaticImageData;
   name: string;
 };
 
 const AuthPosterRegis: React.FC<Props> = (props) => {
-  const { image, name } = props;
+  const { name } = props;
 
   return (
     <div className="relative hidden min-h-screen w-full lg:block">
-      <Image
-        src={image}
+      <img
+        src="https://images.unsplash.com/photo-1632312228997-3ac61a704d34?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt={name}
-        quality={100}
-        fill
-        placeholder="blur"
-        sizes="100vw"
-        className="bg-cover"
+        className="bg-cover w-full h-full object-cover"
       />
       <div className="absolute inset-0 z-50 mt-48 flex justify-center p-10">
         <div>
-          <h1 className="text-center text-[38px] font-semibold   text-white">
+          <h1 className="text-center text-[38px] font-semibold text-white">
             You can attend events as you wish, but your wallet remains safe!
           </h1>
-          <h1 className=" text-center  text-white">
+          <h1 className="text-center text-white">
             Create an account to get cheaper prices, extra discounts, & free
             insurance.
           </h1>

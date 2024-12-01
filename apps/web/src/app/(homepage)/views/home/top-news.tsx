@@ -1,19 +1,18 @@
 import * as React from "react";
 import { Input } from "@/components/ui/input";
 import CardEventPromo from "../../_components/home/card-event-promo";
+
 interface ITopNewsProps {}
 
 const TopNews: React.FunctionComponent<ITopNewsProps> = (props) => {
   return (
-    <section>
-      <div className=" mx-[20px] my-[10px] md:mx-[140px] md:my-[20px] ">
-        <div className=" flex justify-between">
-          <h1 className=" text-[14px] font-semibold md:text-[24px]">
-            Popolar Event
-          </h1>
-          {/* <h1 className=" text-[12px] md:hidden">Load More</h1> */}
+    <section className="bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-600 py-12">
+      <div className="mx-4 md:mx-16 px-6 md:px-10">
+        <div className="flex justify-between items-center">
+          <h1 className="text-white text-xl font-semibold md:text-3xl">Popular Events</h1>
+          {/* <h1 className="text-white text-sm md:hidden">Load More</h1> */}
         </div>
-        <div className=" my-[18px] flex space-x-[8px] overflow-hidden md:my-[40px] md:space-x-[40px] ">
+        <div className="my-8 md:my-12 flex space-x-4 overflow-hidden scrollbar-hide">
           <CardEventPromo />
           <CardEventPromo />
           <CardEventPromo />

@@ -2,20 +2,30 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import InputSearch from "../_components/search-bar";
 import CategoryDesktop from "./home/category-hero-desktop";
+
 interface IHeroProps {}
 
 const Hero: React.FunctionComponent<IHeroProps> = (props) => {
   return (
     <section>
       <div
-        className={`mx-auto flex h-[176px] w-full flex-col bg-[#5CC8E4] bg-[url('https://asset.gecdesigns.com/img/wallpapers/beautiful-fantasy-wallpaper-ultra-hd-wallpaper-4k-sr10012418-1706506236698-cover.webp')] bg-cover bg-center md:h-[434px]`}
+        className="mx-auto flex h-[250px] w-full flex-col bg-cover bg-center bg-no-repeat md:h-[500px]"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        }}
       >
-        <h2 className="mx-auto mt-[2em] text-[22px] text-center italic text-white md:mt-[120px]">
-          Hey you,<span className=" font-bold">what tickets are you looking for?</span>
-        </h2>
-        <InputSearch />
-        <CategoryDesktop />
+        <div className="flex flex-col items-center justify-center h-full bg-black bg-opacity-40">
+          <h2 className="text-3xl font-semibold text-white text-center px-6 md:px-12 md:text-4xl">
+            Discover and Book Amazing Events Near You
+          </h2>
+          <p className="text-xl text-white text-center mt-4 mb-6 px-6 md:text-2xl">
+            Find tickets for the best events, concerts, festivals, and more!
+          </p>
+          <InputSearch />
+        </div>
       </div>
+      <CategoryDesktop />
     </section>
   );
 };

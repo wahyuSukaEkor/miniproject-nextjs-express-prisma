@@ -74,14 +74,14 @@ export class TransactionController {
   public async checkoutUser(req: Request, res: Response, next: NextFunction) {
     try {
       const id = res.locals.decoded.id as number;
-      const transactionId = req.params.transactionId;
+      const transaction_id = req.params.transaction_id;
       const file = req.file as Express.Multer.File;
 
       console.log('cek file name:', file);
 
       const response = await TransactionService.checkoutUser(
         id,
-        transactionId,
+        transaction_id,
         file,
       );
       return res.status(200).send(response);

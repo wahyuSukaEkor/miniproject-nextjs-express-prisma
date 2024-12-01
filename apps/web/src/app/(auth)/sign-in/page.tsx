@@ -7,7 +7,7 @@ import React from "react";
 const SignInPage: React.FC = () => {
   return (
     <section id="sign-in" className="flex items-center justify-center">
-      <AuthPoster image={SIGN_IN} name="Sign In Poster" />
+      <AuthPoster name="Sign In Poster" />
       <SignInForm />
     </section>
   );

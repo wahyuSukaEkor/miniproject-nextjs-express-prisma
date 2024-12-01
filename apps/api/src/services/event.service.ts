@@ -108,8 +108,8 @@ export class EventService {
     return responseWithData(200, true, 'Update event successfully', response);
   }
 
-  static async deleteEvent(id: number, eventId: string) {
-    const newEventId = Validation.validate(EventValidation.EVENT_ID, eventId);
+  static async deleteEvent(id: number, event_id: string) {
+    const newEventId = Validation.validate(EventValidation.EVENT_ID, event_id);
 
     const event = await EventRepository.getEventById(Number(newEventId));
 

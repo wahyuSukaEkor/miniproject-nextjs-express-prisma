@@ -47,19 +47,22 @@ const EventPage: React.FC = () => {
 
   return (
     <DashboardTemplate>
-      <div>
-        <Button asChild size="sm" className="h-8 gap-1">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-semibold tracking-wide">Manage Events</h2>
+        <Button
+          asChild
+          size="sm"
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
+        >
           <Link href="/dashboard/events/create">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Event
-            </span>
+            <PlusCircle className="h-5 w-5" />
+            <span>Add New Event</span>
           </Link>
         </Button>
       </div>
-      <div className="flex flex-1 justify-center">
+      <div className="flex flex-col gap-4">
         {data && data.result.length > 0 ? (
-          <div className="w-full">
+          <div className="rounded-lg bg-white p-4 shadow-lg">
             <EventDataTable
               columns={eventColumns}
               data={data.result}
@@ -70,14 +73,16 @@ const EventPage: React.FC = () => {
             />
           </div>
         ) : (
-          <div className="flex min-h-full flex-col items-center justify-center gap-1 text-center">
-            <h3 className="text-3xl font-bold tracking-tight">
-              You have no events
+          <div className="flex flex-col items-center justify-center gap-4 py-16">
+            <h3 className="text-xl font-semibold text-gray-800">
+              No Events Found
             </h3>
-            <p className="text-sm text-muted-foreground">
-              Set up an event and proceed to sell tickets.
+            <p className="text-sm text-gray-600">
+              Create your first event to get started!
             </p>
-            <Button className="mt-4">Add Event</Button>
+            <Button className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white">
+              <Link href="/dashboard/events/create">Add Event</Link>
+            </Button>
           </div>
         )}
       </div>

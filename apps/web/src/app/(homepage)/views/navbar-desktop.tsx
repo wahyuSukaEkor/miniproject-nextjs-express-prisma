@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import InputSearch from "../_components/search-bar";
-import { CircleUser, MenuIcon, UserIcon } from "lucide-react";
+import { CircleUser, MenuIcon } from "lucide-react";
 import Cookies from "js-cookie";
-import { MdManageAccounts } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
@@ -14,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ProfileOptions from "@/components/shared/profile-options";
+
 interface INavbarDesktopProps {}
 
 const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
@@ -27,8 +27,8 @@ const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
   }, [adminToken, userToken]);
 
   const handleSignOut = () => {
-    Cookies.remove("user-tkn"); // Hapus cookie saat sign out
-    Cookies.remove("admin-tkn"); // Hapus cookie saat sign out
+    Cookies.remove("user-tkn");
+    Cookies.remove("admin-tkn");
     router.push("/sign-in");
   };
 
@@ -37,133 +37,131 @@ const NavbarDesktop: React.FunctionComponent<INavbarDesktopProps> = (props) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
-    <nav className="w-full border-b-2 border-gray-200 text-black">
+    <nav className="w-full border-b border-gray-700 bg-black text-white">
       {/* Desktop Navbar */}
-      <section className="hidden h-[80px] w-full md:block">
-        <div className="mx-[168px] flex items-center justify-between pt-[20px]">
-          <div className="flex items-center space-x-4">
-            <Link href={`/`}>
-              <Image
-                className="h-fit w-full"
-                src="/images/logo.png"
-                width={90}
-                height={30}
-                alt="Logo"
-              />
-            </Link>
-            <InputSearch />
-          </div>
-          <div className="relative flex items-center space-x-2">
-            {token ? (
-              <div className="group relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="rounded-full"
-                    >
-                      <CircleUser className="h-5 w-5" />
-                      <span className="sr-only">Toggle user menu</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <ProfileOptions />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <>
-                <Link href={`/sign-in`}>
-                  <Button
-                    className="mx-auto h-[40px] w-[78px] border border-gray-400 bg-white text-black hover:bg-[#53b253] hover:text-white"
-                    type="button"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href={`/sign-up`}>
-                  <Button
-                    className="mx-auto h-[40px] w-[78px] border border-gray-400 bg-white text-black hover:bg-[#53b253] hover:text-white"
-                    type="button"
-                  >
-                    Sign Up
-                  </Button>
-                </Link>
-              </>
-            )}
-          </div>
+      <section className="hidden md:flex h-[80px] w-full items-center justify-between px-6 lg:px-16">
+        {/* Left Section */}
+        <div className="flex items-center space-x-4">
+          <Link href={`/`}>
+            <Image
+              className="h-fit w-full"
+              src="/images/logo.png"
+              width={90}
+              height={30}
+              alt="Logo"
+            />
+          </Link>
+          <InputSearch />
+        </div>
+        {/* Right Section */}
+        <div className="flex items-center space-x-4">
+          {token ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full text-white hover:bg-gray-800"
+                >
+                  <CircleUser className="h-5 w-5" />
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-gray-900">
+                <ProfileOptions />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link href={`/sign-in`}>
+                <Button
+                  className="h-[40px] w-[78px] border border-gray-600 bg-black text-white hover:bg-gray-700"
+                  type="button"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href={`/sign-up`}>
+                <Button
+                  className="h-[40px] w-[78px] border border-gray-600 bg-black text-white hover:bg-gray-700"
+                  type="button"
+                >
+                  Sign Up
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </section>
 
       {/* Mobile Navbar */}
-      <section className="flex h-[80px] w-full items-center justify-between px-4 md:hidden ">
+      <section className="flex h-[80px] w-full items-center justify-between px-4 md:hidden bg-black">
         <Link href={`/`}>
           <Image
             className="h-fit w-full"
             src="/images/logo.png"
             width={90}
             height={30}
-            alt=""
+            alt="Logo"
           />
         </Link>
-        <div className="relative">
-          <button
-            onClick={toggleMenu}
-            className="inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-            aria-expanded={isOpen}
-            aria-label="Menu"
-          >
-            <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-          </button>
-
-          {isOpen && (
-            <div className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="bg-white py-1">
-                {token ? (
-                  <>
-                    {adminToken && (
-                      <Link href={`/dashboard`} className="">
-                        <span className="block px-4 py-2 text-sm text-gray-700">
-                          Dashboard
-                        </span>
-                      </Link>
-                    )}
-                    {userToken && (
-                      <Link href={`/my-event`} className="">
-                        <span className="block px-4 py-2 text-sm text-gray-700">
-                          Dashboard
-                        </span>
-                      </Link>
-                    )}
-                    <button
-                      onClick={handleSignOut}
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Sign Out
-                    </button>
-                  </>
-                ) : (
-                  <>
+        <button
+          onClick={toggleMenu}
+          className="inline-flex items-center justify-center rounded-md p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          aria-expanded={isOpen}
+          aria-label="Menu"
+        >
+          <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+        </button>
+        {isOpen && (
+          <div className="absolute top-full right-0 z-50 mt-2 w-full bg-gray-900 text-white shadow-md md:hidden">
+            <div className="flex flex-col items-start p-4 space-y-2">
+              {token ? (
+                <>
+                  {adminToken && (
                     <Link
-                      href={`/sign-in`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      href={`/dashboard`}
+                      className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
                     >
-                      Sign In
+                      Dashboard
                     </Link>
+                  )}
+                  {userToken && (
                     <Link
-                      href={`/sign-up`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      href={`/my-event`}
+                      className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
                     >
-                      Sign Up
+                      My Events
                     </Link>
-                  </>
-                )}
-              </div>
+                  )}
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full text-left text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href={`/sign-in`}
+                    className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href={`/sign-up`}
+                    className="block w-full text-sm text-gray-300 hover:bg-gray-800 py-2 px-4 rounded-md"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </section>
     </nav>
   );

@@ -48,7 +48,7 @@ const CategorySeminarSection: React.FunctionComponent<
   return (
     <section
       id="seminar"
-      className="bg-[url('https://asset.gecdesigns.com/img/wallpapers/aesthetic-nature-beautiful-forest-with-hills-river-background-image-sr10012411-1704896852800-cover.webp')]  bg-cover bg-center py-[10px] "
+      className="bg-[url('https://images.unsplash.com/photo-1607969892192-8aa9fe65ee26?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]  bg-cover bg-center py-[10px] "
     >
       <div className=" mx-[20px] my-[26px] md:mx-[140px] ">
         <div className=" flex flex-col justify-between">

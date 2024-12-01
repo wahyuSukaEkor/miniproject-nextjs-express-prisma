@@ -14,69 +14,69 @@ const CategorySection: React.FunctionComponent<ICategorySectionProps> = (
   props,
 ) => {
   return (
-    <section className="block px-5 md:hidden ">
-      <div className=" flex h-[120px] w-full gap-5 overflow-hidden overflow-x-auto ">
-        <div className=" flex flex-col items-center justify-center ">
+    <section className="block px-5 md:hidden py-3">
+      <div className="flex justify-start space-x-6 overflow-x-auto">
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/explore`}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <FaWindows />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <FaWindows className="text-black text-2xl" />
             </div>
           </Link>
-          <h1 className=" mt-1 text-center text-[14px]">All</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">All</h1>
         </div>
 
-        <div className=" flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#festival`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <MdFestival className=" text-red-600" />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <MdFestival className="text-black text-2xl" />
             </div>
           </Link>
-          <h1 className=" mt-1 text-center text-[14px]">Festival</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Festival</h1>
         </div>
 
-        <div className=" flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#sport`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <MdSportsSoccer className="text-[#26aa99]" />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <MdSportsSoccer className="text-black text-2xl" />
             </div>
           </Link>
-          <h1 className=" mt-1 text-center text-[14px]">Sport</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Sport</h1>
         </div>
-        <div className=" flex flex-col items-center justify-center">
+
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#music`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <FaMusic />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <FaMusic className="text-black text-2xl" />
             </div>
           </Link>
-          <h1 className=" mt-1 text-center text-[14px]">Concert</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Concert</h1>
         </div>
-        <div className=" flex flex-col items-center justify-center">
+
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#seminar`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <GrWorkshop className=" text-[#0053de]" />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <GrWorkshop className="text-black text-2xl" />
             </div>
           </Link>
-          <h1 className=" mt-1 text-center text-[14px]">Workshop</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Workshop</h1>
         </div>
 
-        <div className=" flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#drama`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <BiCameraMovie className=" text-[#0053de]" />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <BiCameraMovie className="text-black text-2xl" />
             </div>
           </Link>
-
-          <h1 className=" mt-1 text-center text-[14px]">Movie</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Movie</h1>
         </div>
 
-        <div className=" flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           <Link href={`/#attraction`} scroll={true}>
-            <div className="h-[50px] w-[50px] rounded-lg border border-slate-400 bg-white p-4">
-              <TbBuildingCircus className=" text-red-500" />
+            <div className="h-[60px] w-[60px] rounded-full border border-slate-400 bg-white p-4">
+              <TbBuildingCircus className="text-black text-2xl" />
             </div>
           </Link>
-
-          <h1 className=" mt-1 text-center text-[14px]">Attraction</h1>
+          <h1 className="mt-2 text-center text-[14px] text-black">Attraction</h1>
         </div>
       </div>
     </section>
