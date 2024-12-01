@@ -83,8 +83,8 @@ export class EventRepository {
         category: { select: { category_name: true } },
         location: true,
       },
-      skip: (Number(query.page) - 1) * Number(query.limit), // Lewati data sejumlah offset
-      take: Number(query.limit), // Ambil sejumlah data sesuai limit
+      skip: (Number(query.page) - 1) * Number(query.limit),
+      take: Number(query.limit),
     });
   }
 
