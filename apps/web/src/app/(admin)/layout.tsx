@@ -1,18 +1,18 @@
 import {
   MobileMenuDashboard,
   TabletMenuDashboard,
-} from "./_components/menu-dashboard";
-import Link from "next/link";
-import { CircleUser, Menu, Package2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+} from './_components/menu-dashboard';
+import Link from 'next/link';
+import { CircleUser, Menu, Package2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import ProfileOptions from "@/components/shared/profile-options";
-import BreadcrumbDashboard from "./_components/breadcrumb-dashboard";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import ProfileOptions from '@/components/shared/profile-options';
+import BreadcrumbDashboard from './_components/breadcrumb-dashboard';
 
 type Props = {
   children: React.ReactNode;
@@ -64,7 +64,7 @@ const DashboardLayout: React.FC<Props> = (props) => {
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="block w-full text-sm text-red-50 bg-gray-800 py-2 px-4 rounded-md">
               <ProfileOptions />
             </DropdownMenuContent>
           </DropdownMenu>
