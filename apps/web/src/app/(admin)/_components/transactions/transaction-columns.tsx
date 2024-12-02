@@ -15,7 +15,7 @@ import TransactionDialogContent from "./transaction-dialog-content";
 export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
   {
     id: "event_name",
-    accessorKey: "event.name",
+    accessorKey: "event.event_name",
     header: ({ column }) => {
       return (
         <Button
