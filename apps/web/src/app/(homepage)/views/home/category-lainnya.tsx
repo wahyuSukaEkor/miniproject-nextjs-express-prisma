@@ -1,7 +1,5 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input";
-import CardEventPromo from "../../_components/home/card-event-promo";
 import CardEvent from "../../_components/card-event";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -12,7 +10,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 interface ICategoryAttractionSectionProps {}
 
-const CategoryAttractionSection: React.FunctionComponent<ICategoryAttractionSectionProps> = (props) => {
+const CategoryLainnyaSection: React.FunctionComponent<ICategoryAttractionSectionProps> = (props) => {
   const [activeButton, setActiveButton] = React.useState("Online");
   const [getData, setGetData] = React.useState<any>({
     location_id: 0,
@@ -47,14 +45,14 @@ const CategoryAttractionSection: React.FunctionComponent<ICategoryAttractionSect
 
   return (
     <section
-      id="attraction"
+      id="lainnya"
       className="bg-[url('https://cdn.pixabay.com/photo/2022/06/02/15/01/music-7238254_1280.jpg')] bg-cover bg-center py-[10px]"
     >
       <div className="mx-[20px] my-[26px] md:mx-[140px]">
         <div className="flex flex-col justify-between">
-          <h1 className="text-[14px] font-semibold text-white md:text-[24px]">Attraction</h1>
+          <h1 className="text-[14px] font-semibold text-white md:text-[24px]">Lainnya</h1>
           <h1 className="mt-[4px] text-[12px] text-gray-300 md:mt-[14px] md:text-[14px]">
-            Exciting Adventures Await Around Every Corner! 🎡
+            Jelajahi semua event tanpa batasan dan nikmati semuanya 😎
           </h1>
         </div>
         <div className="flex items-center justify-between">
@@ -71,26 +69,26 @@ const CategoryAttractionSection: React.FunctionComponent<ICategoryAttractionSect
               All
             </Button>
             <Button
-              className={`h-[30px] w-auto border bg-gray-800 px-4 ${activeButton === "Surabaya" ? "border-teal-500" : "border-gray-600"} rounded-md text-white hover:bg-teal-600 hover:text-white`}
+              className={`h-[30px] w-auto border bg-gray-800 px-4 ${activeButton === "Palembang" ? "border-teal-500" : "border-gray-600"} rounded-md text-white hover:bg-teal-600 hover:text-white`}
               type="button"
               onClick={() => {
-                const newData = { ...getData, location_id: 265 };
+                const newData = { ...getData, location_id: 113 };
                 setGetData(newData);
-                setActiveButton("Surabaya");
+                setActiveButton("Palembang");
               }}
             >
-              Surabaya
+              Palembang
             </Button>
             <Button
-              className={`h-[30px] w-auto border bg-gray-800 px-4 ${activeButton === "Balikpapan" ? "border-teal-500" : "border-gray-600"} rounded-md text-white hover:bg-teal-600 hover:text-white`}
+              className={`h-[30px] w-auto border bg-gray-800 px-4 ${activeButton === "Jambi" ? "border-teal-500" : "border-gray-600"} rounded-md text-white hover:bg-teal-600 hover:text-white`}
               type="button"
               onClick={() => {
-                const newData = { ...getData, location_id: 364 };
+                const newData = { ...getData, location_id: 98 };
                 setGetData(newData);
-                setActiveButton("Balikpapan");
+                setActiveButton("Jambi");
               }}
             >
-              Balikpapan
+              Jambi
             </Button>
           </div>
           <Link href={`/explore`}>
@@ -127,4 +125,4 @@ const CategoryAttractionSection: React.FunctionComponent<ICategoryAttractionSect
   );
 };
 
-export default CategoryAttractionSection;
+export default CategoryLainnyaSection;
