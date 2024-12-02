@@ -1,31 +1,30 @@
 import React from "react";
 import Hero from "./views/hero";
-import TopNews from "./views/home/top-news";
-import CategoryMusikSection from "./views/home/category-musik";
+import CategoryGameSection from "./views/home/category-game";
 import NavbarDesktop from "./views/navbar-desktop";
-import AllEventSection from "./views/home/all-event";
 import CategorySeminarSection from "./views/home/category-seminar";
-import { Button } from "@/components/ui/button";
 import CategorySection from "./views/home/category-hero-mobile";
 import CategoryFestivalSection from "./views/home/category-festival";
 import CategorySportsSection from "./views/home/category-sport";
-import CategoryAttractionSection from "./views/home/category-attraction";
+import CategoryLainnyaSection from "./views/home/category-lainnya";
 import CategoryDramaSection from "./views/home/category-drama";
 import Footer from "./views/footer";
+import CategoryDesktop from "./views/home/category-hero-desktop";
 
 const HomePage: React.FC = () => {
   return (
     <section className="">
       <NavbarDesktop />
       <Hero />
+      <CategoryDesktop />
       <CategorySection />
-      <CategoryDramaSection />
-      <CategoryMusikSection />
       <CategoryFestivalSection />
-      <CategoryAttractionSection />
       <CategorySportsSection />
       <CategorySeminarSection />
-      {/* <Footer /> */}
+      <CategoryDramaSection />
+      <CategoryGameSection />
+      <CategoryLainnyaSection />
+      <Footer />
     </section>
   );
 };

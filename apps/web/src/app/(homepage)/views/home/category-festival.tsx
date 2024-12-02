@@ -1,9 +1,6 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input";
-import CardEventPromo from "../../_components/home/card-event-promo";
 import CardEvent from "../../_components/card-event";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { NEXT_PUBLIC_BASE_API_URL } from "@/lib/env";
 import Skeleton from "react-loading-skeleton";
@@ -28,7 +25,6 @@ const CategoryFestivalSection: React.FunctionComponent<
       let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=1";
       const response = await axios.get(url);
       setEvent(response.data.result);
-      // console.log("HASIL RESPONSE DATA :",response.data.result);
     } catch (err) {
       console.log(err);
     } finally {
@@ -44,7 +40,7 @@ const CategoryFestivalSection: React.FunctionComponent<
             Festival
           </h1>
           <h1 className=" mt-[4px] text-[12px] md:mt-[14px] md:text-[14px] ">
-          Enjoy the Festival with a 50% Discount! 🎉
+          Rasakan vibe seru di festival & konser terbesar! 🎉🎶 Ayo, siap joget bareng dan nikmati suasana!
           </h1>
         </div>
         <div className="my-[18px] flex gap-4 overflow-hidden overflow-x-auto md:grid md:grid-cols-5">

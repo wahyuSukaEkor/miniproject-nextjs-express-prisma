@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Footer from "../../views/footer";
 interface IDetailEventProps {
   thumbnails_path: string;
 }
@@ -226,6 +227,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
       <div className="mx-0 md:mx-[120px]">
         <Recomend />
       </div>
+      <Footer/>
     </section>
   );
 };

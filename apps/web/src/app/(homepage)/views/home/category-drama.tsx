@@ -1,9 +1,5 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input";
-import CardEventPromo from "../../_components/home/card-event-promo";
-import CardEvent from "../../_components/card-event";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { NEXT_PUBLIC_BASE_API_URL } from "@/lib/env";
 import Skeleton from "react-loading-skeleton";
@@ -21,11 +17,11 @@ const CategoryDramaSection: React.FunctionComponent<
     onHandleGet();
   }, []);
   const [displayedEvents, setDisplayedEvents] = React.useState(5);
-  const filterEventDrama = event.filter((event: any) => event.category_id === 5);
+  const filterEventDrama = event.filter((event: any) => event.category_id === 4);
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=5";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=4";
       const response = await axios.get(url);
       setEvent(response.data.result);
     } catch (err) {
@@ -40,8 +36,7 @@ const CategoryDramaSection: React.FunctionComponent<
         <div className=" flex flex-col justify-between">
           <h1 className=" text-[14px] font-semibold md:text-[24px]">Drama</h1>
           <h1 className=" mt-[4px] text-[12px] md:mt-[14px] md:text-[14px] ">
-            Get ready for the biggest hits and most popular movies that everyone
-            is talking about 🎬
+          Siap-siap nonton film hits dan terpopuler yang lagi ramai dibicarakan! 🎬🔥
           </h1>
         </div>
         <div className="my-[18px] flex gap-4 overflow-hidden overflow-x-auto md:grid md:grid-cols-5">
