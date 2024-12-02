@@ -1,31 +1,32 @@
-import * as React from "react";
-import { Input } from "@/components/ui/input";
-import InputSearch from "../_components/search-bar";
-import CategoryDesktop from "./home/category-hero-desktop";
+import * as React from 'react';
+import { Input } from '@/components/ui/input';
+import InputSearch from '../_components/search-bar';
+import CategoryDesktop from './home/category-hero-desktop';
 
 interface IHeroProps {}
 
 const Hero: React.FunctionComponent<IHeroProps> = (props) => {
   return (
-    <section>
-      <div
-        className="mx-auto flex h-[250px] w-full flex-col bg-cover bg-center bg-no-repeat md:h-[500px]"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        }}
-      >
-        <div className="flex flex-col items-center justify-center h-full bg-black bg-opacity-40">
-          <h2 className="text-3xl font-semibold text-white text-center px-6 md:px-12 md:text-4xl">
-            Discover and Book Amazing Events Near You
-          </h2>
-          <p className="text-xl text-white text-center mt-4 mb-6 px-6 md:text-2xl">
-            Find tickets for the best events, concerts, festivals, and more!
-          </p>
-          <InputSearch />
+    <section className="relative bg-[url('https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp')] bg-cover bg-center text-white py-20">
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="relative container mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h1 className="text-5xl sm:text-6xl font-bold mb-4 drop-shadow-md">
+          Buat dan Jelajahi <br />
+          Acara Sesukamu
+        </h1>
+        <p className="text-base sm:text-xl mb-6 drop-shadow-md text-center text-blue-200 font-bold">
+          TIKETAKTI – Jelajahi semua acara dalam sekejap
+        </p>
+
+        <div className="flex flex-col items-center justify-center sm:flex-row">
+          <a
+            href="/explore"
+            className="mb-4 sm:mb-0 sm:mr-3 text-pink bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Lihat Semua Acara
+          </a>
         </div>
       </div>
-      <CategoryDesktop />
     </section>
   );
 };

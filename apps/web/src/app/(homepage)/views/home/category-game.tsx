@@ -1,7 +1,5 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input";
-import CardEventPromo from "../../_components/home/card-event-promo";
 import CardEvent from "../../_components/card-event";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -9,10 +7,10 @@ import { NEXT_PUBLIC_BASE_API_URL } from "@/lib/env";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-interface ICategoryMusikSectionProps {}
+interface ICategoryGameSectionProps {}
 
-const CategoryMusikSection: React.FunctionComponent<
-  ICategoryMusikSectionProps
+const CategoryGameSection: React.FunctionComponent<
+  ICategoryGameSectionProps
 > = (props) => {
   const [event, setEvent] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -25,11 +23,11 @@ const CategoryMusikSection: React.FunctionComponent<
     onHandleGet();
   }, [getData]);
   const [displayedEvents, setDisplayedEvents] = React.useState(5);
-  const filterEventMusik = event.filter((event: any) => event.category_id === 2);
+  const filterEventGame = event.filter((event: any) => event.category_id === 5);
   const onHandleGet = async () => {
     try {
       setLoading(true);
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=2";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=5";
       if (getData.location_id) {
         url += `&location_id=${getData.location_id}`;
       }
@@ -43,13 +41,12 @@ const CategoryMusikSection: React.FunctionComponent<
     }
   };
   return (
-    <section id="music">
+    <section id="game">
       <div className=" mx-[20px] my-[26px] md:mx-[140px] ">
         <div className=" flex flex-col justify-between">
-          <h1 className=" text-[14px] font-semibold md:text-[24px]">Concert</h1>
+          <h1 className=" text-[14px] font-semibold md:text-[24px]">Game & E-Sports</h1>
           <h1 className=" mt-[4px] text-[12px] md:mt-[14px] md:text-[14px] ">
-            Rock out with your favorite musicians at the hottest concert of the
-            year🎸
+          Seru-seruan bareng di dunia game & e-sports! 🕹️🎮 Siap tanding dan jadi juara?
           </h1>
         </div>
         <div className=" flex items-center justify-between">
@@ -113,7 +110,7 @@ const CategoryMusikSection: React.FunctionComponent<
                   <Skeleton height={288} />
                 </div>
               ))
-            : filterEventMusik
+            : filterEventGame
                 .slice(0, displayedEvents)
                 .map((event: any, index: number) => (
                   <div key={index}>
@@ -133,4 +130,4 @@ const CategoryMusikSection: React.FunctionComponent<
   );
 };
 
-export default CategoryMusikSection;
+export default CategoryGameSection;

@@ -1,11 +1,9 @@
 import * as React from "react";
-import { FaWindows } from "react-icons/fa";
+import { FaEllipsisH, FaGamepad, FaWindows } from "react-icons/fa";
 import { MdFestival } from "react-icons/md";
 import { MdSportsSoccer } from "react-icons/md";
-import { FaMusic } from "react-icons/fa6";
+import { FaClapperboard, FaMusic } from "react-icons/fa6";
 import { GrWorkshop } from "react-icons/gr";
-import { BiCameraMovie } from "react-icons/bi";
-import { TbBuildingCircus } from "react-icons/tb";
 import Link from "next/link";
 
 interface ICategoryDesktopProps {}
@@ -29,7 +27,7 @@ const CategoryDesktop: React.FunctionComponent<ICategoryDesktopProps> = (
             <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
               <MdFestival className="text-black text-3xl" />
             </div>
-            <h1 className="mt-2 text-center text-[18px]">Festival</h1>
+            <h1 className="mt-2 text-center text-[18px]">Festival & Konser</h1>
           </div>
         </Link>
         <Link href={`/#sport`} scroll={true}>
@@ -37,15 +35,7 @@ const CategoryDesktop: React.FunctionComponent<ICategoryDesktopProps> = (
             <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
               <MdSportsSoccer className="text-black text-3xl" />
             </div>
-            <h1 className="mt-2 text-center text-[18px]">Sport</h1>
-          </div>
-        </Link>
-        <Link href={`/#music`} scroll={true}>
-          <div className="flex flex-col items-center justify-center">
-            <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
-              <FaMusic className="text-black text-3xl" />
-            </div>
-            <h1 className="mt-2 text-center text-[18px]">Concert</h1>
+            <h1 className="mt-2 text-center text-[18px]">Olahraga</h1>
           </div>
         </Link>
         <Link href={`/#seminar`} scroll={true}>
@@ -53,23 +43,31 @@ const CategoryDesktop: React.FunctionComponent<ICategoryDesktopProps> = (
             <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
               <GrWorkshop className="text-black text-3xl" />
             </div>
-            <h1 className="mt-2 text-center text-[18px]">Workshop</h1>
+            <h1 className="mt-2 text-center text-[18px]">Workshop & Seminar</h1>
           </div>
         </Link>
         <Link href={`/#drama`} scroll={true}>
           <div className="flex flex-col items-center justify-center">
             <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
-              <BiCameraMovie className="text-black text-3xl" />
+              <FaClapperboard className="text-black text-3xl" />
             </div>
-            <h1 className="mt-2 text-center text-[18px]">Movie</h1>
+            <h1 className="mt-2 text-center text-[18px]">Teater & Drama</h1>
           </div>
         </Link>
-        <Link href={`/#attraction`} scroll={true}>
+        <Link href={`/#game`} scroll={true}>
           <div className="flex flex-col items-center justify-center">
             <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
-              <TbBuildingCircus className="text-black text-3xl" />
+              <FaGamepad className="text-black text-3xl" />
             </div>
-            <h1 className="mt-2 text-center text-[18px]">Attraction</h1>
+            <h1 className="mt-2 text-center text-[18px]">Game & E-Sports</h1>
+          </div>
+        </Link>
+        <Link href={`/#lainnya`} scroll={true}>
+          <div className="flex flex-col items-center justify-center">
+            <div className="h-[70px] w-[70px] rounded-full border border-gray-400 bg-white p-5 hover:bg-gray-200">
+              <FaEllipsisH className="text-black text-3xl" />
+            </div>
+            <h1 className="mt-2 text-center text-[18px]">Lainnya</h1>
           </div>
         </Link>
       </div>

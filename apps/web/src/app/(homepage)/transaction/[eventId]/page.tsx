@@ -236,7 +236,7 @@ const BayarPage: React.FunctionComponent<IBayarPageProps> = () => {
         </div>
         {/* <DetailOrder /> */}
         <div className=" relative mx-[10px] flex flex-col pb-[11vh] md:mx-0 md:pb-0">
-          <div className="ml-0 mt-[24px] h-auto w-full rounded-lg bg-white  p-[20px] shadow md:fixed md:ml-[48px]  md:h-auto md:w-[392px]">
+          <div className="ml-0 mt-[24px] h-auto w-full rounded-lg bg-white  p-[20px] shadow md:ml-[48px]  md:h-auto md:w-[392px]">
             <div className=" flex">
               {event.thumbnails_path && (
                 <Image

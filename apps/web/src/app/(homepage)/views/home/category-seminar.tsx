@@ -1,7 +1,5 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input";
-import CardEventPromo from "../../_components/home/card-event-promo";
 import CardEvent from "../../_components/card-event";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -29,7 +27,7 @@ const CategorySeminarSection: React.FunctionComponent<
     try {
       setLoading(true);
 
-      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=4";
+      let url = NEXT_PUBLIC_BASE_API_URL + "/events?category_id=3";
       if (getData.location_id) {
         url += `&location_id=${getData.location_id}`;
       }
@@ -43,7 +41,7 @@ const CategorySeminarSection: React.FunctionComponent<
     }
   };
   const filterEventSeminar = event.filter(
-    (event: any) => (event.category_id = 4),
+    (event: any) => (event.category_id = 3),
   );
   return (
     <section
@@ -56,7 +54,7 @@ const CategorySeminarSection: React.FunctionComponent<
             Workshop
           </h1>
           <h1 className=" mt-[4px] text-[12px] text-white md:mt-[14px] md:text-[14px]">
-            Develop Your Skills in Exclusive Workshops! 📚
+          Siap upgrade skill dan ilmu kamu? 🎓💡 Ikuti workshop & seminar seru yang penuh insight dan inspirasi!
           </h1>
         </div>
         <div className="mt-[10px] hidden space-x-4 md:block">

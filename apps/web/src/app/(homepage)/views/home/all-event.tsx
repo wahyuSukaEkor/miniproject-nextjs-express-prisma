@@ -158,7 +158,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 Festival
               </Button>
               <Button
-                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Concert" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
+                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Olahraga" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
                 type="button"
                 onClick={(element: any) => {
                   const newData = {
@@ -167,25 +167,10 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                   };
                   setCurrentPage(1);
                   setGetData(newData);
-                  setActiveButton("Concert");
+                  setActiveButton("Olahraga");
                 }}
               >
-                Concert
-              </Button>
-              <Button
-                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Sport" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
-                type="button"
-                onClick={(element: any) => {
-                  const newData = {
-                    ...getData,
-                    category_id: 3,
-                  };
-                  setCurrentPage(1);
-                  setGetData(newData);
-                  setActiveButton("Sport");
-                }}
-              >
-                Sport
+                Olahraga
               </Button>
               <Button
                 className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Workshop & Seminar" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
@@ -193,7 +178,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 onClick={(element: any) => {
                   const newData = {
                     ...getData,
-                    category_id: 4,
+                    category_id: 3,
                   };
                   setCurrentPage(1);
                   setGetData(newData);
@@ -203,7 +188,22 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                 Workshop & Seminar
               </Button>
               <Button
-                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Theater & Drama" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
+                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Teater & Drama" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
+                type="button"
+                onClick={(element: any) => {
+                  const newData = {
+                    ...getData,
+                    category_id: 4,
+                  };
+                  setCurrentPage(1);
+                  setGetData(newData);
+                  setActiveButton("Teater & Drama");
+                }}
+              >
+                Teater & Drama
+              </Button>
+              <Button
+                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Game & E-Sports" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
                 type="button"
                 onClick={(element: any) => {
                   const newData = {
@@ -212,13 +212,13 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                   };
                   setCurrentPage(1);
                   setGetData(newData);
-                  setActiveButton("Theater & Drama");
+                  setActiveButton("Game & E-Sports");
                 }}
               >
-                Theater & Drama
+                Game & E-Sports
               </Button>
               <Button
-                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Attractions" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
+                className={`h-[30px] w-auto border bg-white px-4 ${activeButton === "Lainnya" ? "border-blue-500" : "border-gray-400"} rounded-md text-black hover:bg-[#53b253] hover:text-white`}
                 type="button"
                 onClick={(element: any) => {
                   const newData = {
@@ -227,10 +227,10 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
                   };
                   setCurrentPage(1);
                   setGetData(newData);
-                  setActiveButton("Attractions");
+                  setActiveButton("Lainnya");
                 }}
               >
-                Attractions
+                Lainnya
               </Button>
             </div>
             <div className="mt-6 flex space-x-4">
@@ -305,7 +305,7 @@ const AllEventSection: React.FunctionComponent<IAllEventSectionProps> = (
             ))
           ) : events.length === 0 ? (
             <div className="col-span-2 flex h-[500px] items-center justify-center rounded-md bg-gray-200 italic md:col-span-5">
-              Event not found 🙇‍♀️🙇‍♀️
+              Event Tidak Ditemukan 😭😢🥹🥲
             </div>
           ) : (
             events.map((event: any, index: number) => (

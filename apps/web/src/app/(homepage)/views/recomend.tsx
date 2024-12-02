@@ -31,7 +31,7 @@ const Recomend: React.FunctionComponent<IRecomendProps> = (props) => {
       <div id="stroke" className=" mb-[40px] hidden border md:block"></div>
       <div className=" mt-[10px]">
         <h1 className=" text-[18px] font-semibold md:text-[18px] ">
-          Maybe you like it 🩷
+          Cek ini juga😁👍
         </h1>
       </div>
       <div className="my-[18px] flex gap-2 overflow-hidden overflow-x-auto md:grid md:grid-cols-5 ">
