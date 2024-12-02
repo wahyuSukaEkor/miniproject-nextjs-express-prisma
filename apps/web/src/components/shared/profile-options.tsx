@@ -19,12 +19,12 @@ const ProfileOptions: React.FC = () => {
   return (
     <>
       {userToken && (
-        <DropdownMenuItem asChild className="cursor-pointer">
+        <DropdownMenuItem asChild className="cursor-pointer text-slate-100 focus:text-slate-700">
           <Link href={"/my-event"}>Dashboard</Link>
         </DropdownMenuItem>
       )}
       {adminToken && (
-        <DropdownMenuItem asChild className="cursor-pointer">
+        <DropdownMenuItem asChild className="cursor-pointer text-slate-100 focus:text-slate-700">
           <Link href={"/dashboard"}>Dashboard</Link>
         </DropdownMenuItem>
       )}

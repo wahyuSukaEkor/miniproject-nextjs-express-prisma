@@ -284,7 +284,7 @@ export class TransactionService {
     const transactions = await TransactionRepository.getEventWaiting(id);
 
     const response = transactions.map((transaction) => {
-      return { transactionId: transaction.id, total_price:transaction.total_price, discounted_price:transaction.discounted_price, ...transaction.event };
+      return { transaction_id: transaction.id, total_price:transaction.total_price, discounted_price:transaction.discounted_price, ...transaction.event };
     });
 
     return responseWithData(
@@ -327,12 +327,12 @@ export class TransactionService {
 
   static async checkoutUser(
     id: number,
-    transactionId: string,
+    transaction_id: string,
     file: Express.Multer.File,
   ) {
     const newTransactionId = Validation.validate(
       TransactionValidation.TRANSACTION_ID,
-      transactionId,
+      transaction_id,
     );
     const validateFile = TransactionValidation.fileValidation(file);
 
