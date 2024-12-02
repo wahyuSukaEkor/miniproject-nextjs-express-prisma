@@ -3,7 +3,7 @@ import { locations } from './locations';
 import { categories } from './categories';
 import { events } from './events';
 import { users } from './users';
-import { SALT } from '@/config';
+import { SALT } from '../../src/config';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();

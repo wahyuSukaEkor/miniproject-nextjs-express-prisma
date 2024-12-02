@@ -38,11 +38,11 @@ export const getTransactionStatus = async (
 
 export const updateTransactionStatus = async (
   token: string,
-  transactionId: number,
+  transaction_id: number,
   status: string,
 ) => {
   const res = await axios.patch<ResponseWithoutData>(
-    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transactionId}/status`,
+    NEXT_PUBLIC_BASE_API_URL + `/admin/transactions/${transaction_id}/status`,
     { status },
     { headers: { Authorization: `Bearer ${token}` } },
   );
