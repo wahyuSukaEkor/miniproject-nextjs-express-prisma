@@ -15,7 +15,7 @@ const EventParticipation: React.FC = () => {
 
   const page = Number(searchParams.get("page")) ?? 1;
   const limit = Number(searchParams.get("limit")) ?? 10;
-  const sort_by = searchParams.get("sort_by") ?? "createdAt";
+  const sort_by = searchParams.get("sort_by") ?? "created_at";
   const order_by = searchParams.get("order_by") ?? "desc";
 
   const {
