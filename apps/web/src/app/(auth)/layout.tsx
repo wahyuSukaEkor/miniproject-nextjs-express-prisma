@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const UserLayout: React.FC<Props> = (props) => {
+const AuthLayout: React.FC<Props> = (props) => {
   const { children } = props;
 
   return (
@@ -16,4 +16,4 @@ const UserLayout: React.FC<Props> = (props) => {
     </main>);
 };
 
-export default UserLayout;
+export default AuthLayout;
