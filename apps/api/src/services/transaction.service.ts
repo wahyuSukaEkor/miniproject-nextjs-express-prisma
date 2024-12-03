@@ -60,7 +60,7 @@ export class TransactionService {
       voucher = await VoucherRepository.findVoucherById(voucer_id);
       if (!voucher) throw new ErrorResponse(404, 'Voucher not found!');
 
-      if (voucher.userId !== id && voucher.eventId !== eventId) {
+      if (voucher.user_id !== id && voucher.eventId !== eventId) {
         throw new ErrorResponse(400, 'Voucher cannot be used!');
       }
 

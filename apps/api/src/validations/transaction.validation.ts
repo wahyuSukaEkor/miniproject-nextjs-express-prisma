@@ -20,10 +20,10 @@ export class TransactionValidation {
       .number({ required_error: 'Seat Requests is required!' })
       .int({ message: 'Seat Requests must be an integer!' })
       .positive({ message: 'You cannot book 0 seats' }),
-    voucher_id: z
-      .number({ message: 'VoucherId must be a number' })
-      .int({ message: 'VoucherId must be an integer' })
-      .positive({ message: 'VoucherId must be a positive number' })
+    voucer_id: z
+      .number({ message: 'VoucerId must be a number' })
+      .int({ message: 'VoucerId must be an integer' })
+      .positive({ message: 'VoucerId must be a positive number' })
       .optional(),
     point_used: z
       .number({ message: 'Redeemed Points must be a number' })
