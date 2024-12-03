@@ -12,7 +12,7 @@ import { TransactionStatus } from '@/types/transaction.type';
 import { ErrorResponse } from '@/utils/error';
 import { decrementDate, incrementDate } from '@/utils/generatedate';
 import {
-  responseDataWithPagination,
+  responseData,
   responseWithData,
   responseWithoutData,
 } from '@/utils/response';
@@ -28,11 +28,6 @@ export class AdminService {
       query,
     );
 
-    if (!adminEventQuery.page) adminEventQuery.page = 1;
-    if (!adminEventQuery.limit) adminEventQuery.limit = 10;
-    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'created_at';
-    if (!adminEventQuery.order_by) adminEventQuery.order_by = 'desc';
-
     const user = await UserRepository.getAdminEvents(id, adminEventQuery);
 
     const allEvents = await UserRepository.countAdminEvents(
@@ -44,13 +39,10 @@ export class AdminService {
       ({ user_id, category_id, location_id, ...rest }) => rest,
     );
 
-    return responseDataWithPagination(
+    return responseData(
       200,
       'Get admin events successfully',
       events!,
-      Number(adminEventQuery.page),
-      Number(adminEventQuery.limit),
-      allEvents?._count.Event || 0,
     );
   }
 
@@ -62,11 +54,6 @@ export class AdminService {
       AdminValidation.EVENT_TRANSACTION_QUERY,
       query,
     );
-
-    if (!eventQuery.page) eventQuery.page = 1;
-    if (!eventQuery.limit) eventQuery.limit = 10;
-    if (!eventQuery.sort_by) eventQuery.sort_by = 'created_at';
-    if (!eventQuery.order_by) eventQuery.order_by = 'desc';
 
     const eventTransactions = await TransactionRepository.getEventTransactions(
       id,
@@ -80,13 +67,10 @@ export class AdminService {
       ({ user_id, eventId, voucer_id, ...rest }) => rest,
     );
 
-    return responseDataWithPagination(
+    return responseData(
       200,
       'Get admin event transactions successfully',
       transactions,
-      Number(eventQuery.page),
-      Number(eventQuery.limit),
-      allTransactions._count,
     );
   }
 
@@ -193,21 +177,14 @@ export class AdminService {
       query,
     );
 
-    if (!adminEventQuery.page) adminEventQuery.page = 1;
-    if (!adminEventQuery.limit) adminEventQuery.limit = 10;
-    if (!adminEventQuery.sort_by) adminEventQuery.sort_by = 'created_at';
-    if (!adminEventQuery.order_by) adminEventQuery.order_by = 'desc';
+    const event = await EventRepository.getEventIncludeTransaction(
+      Number(newEventId),
+      {
+        sort_by: adminEventQuery.sort_by || 'created_at',
+        order_by: adminEventQuery.order_by || 'desc',
+      },
+    );
 
-    const event =
-      await EventRepository.getEventIncludeTransactionWithPagination(
-        Number(newEventId),
-        {
-          limit: Number(adminEventQuery.limit),
-          page: Number(adminEventQuery.page),
-          sort_by: adminEventQuery.sort_by,
-          order_by: adminEventQuery.order_by,
-        },
-      );
 
     if (!event) {
       return responseWithData(200, true, "Event don't have participations", []);
@@ -232,13 +209,10 @@ export class AdminService {
       Number(eventId),
     );
 
-    return responseDataWithPagination(
+    return responseData(
       200,
       'Get admin event participations successfully',
       transactions,
-      Number(adminEventQuery.page),
-      Number(adminEventQuery.limit),
-      allEventTransactions?._count.Transaction || 0,
     );
   }
 
@@ -311,6 +285,7 @@ export class AdminService {
 }
 
 
+
 export class AdminController {
   public async getAdminEvents(req: Request, res: Response, next: NextFunction) {
     try {
@@ -332,7 +307,6 @@ export class AdminController {
     try {
       const id = res.locals.decoded.id as number;
       const query = req.query as AdminEventTransactionQuery;
-
       const response = await AdminService.getAdminEventTransactions(id, query);
       return res.status(200).send(response);
     } catch (error) {
@@ -398,6 +372,7 @@ export class AdminController {
       const id = res.locals.decoded.id as number;
       const eventId = req.params.eventId;
       const query = req.query as AdminEventQuery;
+
 
       const response = await AdminService.getAdminEventParticipations(
         id,
