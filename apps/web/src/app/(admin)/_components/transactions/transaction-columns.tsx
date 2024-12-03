@@ -113,7 +113,7 @@ export const transactionColumns: ColumnDef<AdminEventTransactionResponse>[] = [
     },
   },
   {
-    accessorKey: "paymentStatus",
+    accessorKey: "payment_status",
     header: "Payment Status",
     cell: ({ row }) => {
       const status: PaymentStatus = row.getValue("payment_status");

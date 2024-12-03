@@ -56,21 +56,21 @@ export class AdminRouter {
     );
 
     this.router.get(
-      '/transactions/:transactionId',
+      '/transactions/:transaction_id',
       verifyToken,
       adminGuard,
       this.adminController.getTransaction,
     );
 
     this.router.get(
-      '/transactions/:transactionId/details',
+      '/transactions/:transaction_id/details',
       verifyToken,
       adminGuard,
       this.adminController.getTransactionDetails,
     );
 
     this.router.patch(
-      '/transactions/:transactionId/status',
+      '/transactions/:transaction_id/status',
       verifyToken,
       adminGuard,
       this.adminController.updateTransactionStatus,
