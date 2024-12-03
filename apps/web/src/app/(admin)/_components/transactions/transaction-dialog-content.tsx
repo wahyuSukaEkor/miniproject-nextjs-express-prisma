@@ -35,7 +35,7 @@ const TransactionDialogContent: React.FC<Props> = (props) => {
     <DialogContent className="sm:max-w-[425px] md:max-w-xl">
       <DialogHeader>
         <DialogTitle>Payment Proof</DialogTitle>
-        <DialogDescription>Here&apos;s the payment proof</DialogDescription>
+        <DialogDescription>Here is the payment proof</DialogDescription>
       </DialogHeader>
       <TransactionDialogBody transaction_id={transaction_id} />
       <DialogFooter>
