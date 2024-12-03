@@ -61,7 +61,7 @@ const DetailEvent: React.FunctionComponent<IDetailEventProps> = (props) => {
         seatRequests: newQuantityString,
         point_used: 0,
         eventId: 0,
-        voucherId: 0,
+        voucer_id: 0,
       };
     });
   };

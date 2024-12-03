@@ -41,7 +41,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
         }
       }
 
-      const userPoint = UserProfile.result.point?.balance || 0
+      const userPoint = UserProfile.result.point?.total_point || 0
       setPoint(userPoint);
       setVoucher(UserProfile.result.Voucher);
       setReferalCode(UserProfile.result.referral_code);
