@@ -64,7 +64,8 @@ const DashboardLayout: React.FC<Props> = (props) => {
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="block w-full text-sm text-red-50 bg-gray-800 py-2 px-4 rounded-md"> {/* styling */}
+
+            <DropdownMenuContent align="end" className="block w-full text-sm text-red-50 bg-gray-800 hover:bg-gray-800 py-2 px-4 rounded-md">
               <ProfileOptions />
             </DropdownMenuContent>
           </DropdownMenu>
