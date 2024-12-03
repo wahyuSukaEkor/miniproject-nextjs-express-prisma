@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,16 +8,16 @@ datasource db {
 }
 
 model User {
-  id            Int           @id @default(autoincrement())
   username      String        @unique
   email         String        @unique
   password      String
-  referral_code String?       @unique
   isAdmin       Boolean
   created_at    DateTime      @default(now())
   updated_at    DateTime      @updatedAt
-  point         Point?
+  referral_code String?       @unique
+  id            Int           @id @default(autoincrement())
   Event         Event[]
+  point         Point?
   Review        Review[]
   Transaction   Transaction[]
   Voucher       Voucher[]
@@ -31,19 +28,17 @@ model User {
 model Point {
   id           Int      @id @default(autoincrement())
   user_id      Int      @unique
-  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   total_point  Int
   expired_date DateTime
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("points")
 }
 
 model Event {
-  id              Int           @id @default(autoincrement())
   user_id         Int
-  user            User          @relation(fields: [user_id], references: [id])
   event_name      String
   price           Int
   description     String        @db.Text
@@ -53,16 +48,21 @@ model Event {
   max_capacity    Int
   buy_limit       Int
   category_id     Int
-  category        EventCategory @relation(fields: [category_id], references: [id])
   location_id     Int
-  location        Location      @relation(fields: [location_id], references: [id])
   thumbnails_path String
   created_at      DateTime      @default(now())
   updated_at      DateTime      @updatedAt
+  id              Int           @id @default(autoincrement())
+  category        EventCategory @relation(fields: [category_id], references: [id])
+  location        Location      @relation(fields: [location_id], references: [id])
+  user            User          @relation(fields: [user_id], references: [id])
   Review          Review[]
   Transaction     Transaction[]
   Voucher         Voucher[]
 
+  @@index([category_id], map: "events_category_id_fkey")
+  @@index([location_id], map: "events_location_id_fkey")
+  @@index([user_id], map: "events_user_id_fkey")
   @@map("events")
 }
 
@@ -84,23 +84,21 @@ model EventCategory {
 
 model Review {
   id         Int      @id @default(autoincrement())
-  eventId    Int
-  event      Event    @relation(fields: [eventId], references: [id])
   user_id    Int
-  user       User     @relation(fields: [user_id], references: [id])
   rating     Int
   comment    String?  @db.Text
   created_at DateTime @default(now())
+  eventId    Int
+  event      Event    @relation(fields: [eventId], references: [id])
+  user       User     @relation(fields: [user_id], references: [id])
 
+  @@index([eventId], map: "reviews_eventId_fkey")
+  @@index([user_id], map: "reviews_user_id_fkey")
   @@map("reviews")
 }
 
 model Transaction {
-  id                Int                 @id @default(autoincrement())
   user_id           Int
-  user              User                @relation(fields: [user_id], references: [id])
-  eventId           Int
-  event             Event               @relation(fields: [eventId], references: [id])
   payment_status    PaymentStatus
   base_price        Int
   quantity          Int
@@ -108,13 +106,50 @@ model Transaction {
   discounted_price  Int?
   point_used        Int?
   voucer_id         Int?
-  voucer            Voucher?            @relation(fields: [voucer_id], references: [id])
   payment_path      String?
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
+  eventId           Int
+  id                Int                 @id @default(autoincrement())
   TransactionDetail TransactionDetail[]
+  event             Event               @relation(fields: [eventId], references: [id])
+  user              User                @relation(fields: [user_id], references: [id])
+  voucer            Voucher?            @relation(fields: [voucer_id], references: [id])
 
+  @@index([eventId], map: "transactions_eventId_fkey")
+  @@index([user_id], map: "transactions_user_id_fkey")
+  @@index([voucer_id], map: "transactions_voucer_id_fkey")
   @@map("transactions")
+}
+
+model Voucher {
+  name         String
+  discount     Int
+  expired_date DateTime?
+  max_usage    Int
+  usage        Int           @default(0)
+  user_id      Int?
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  eventId      Int?
+  id           Int           @id @default(autoincrement())
+  Transaction  Transaction[]
+  event        Event?        @relation(fields: [eventId], references: [id])
+  user         User?         @relation(fields: [user_id], references: [id])
+
+  @@index([eventId], map: "vouchers_eventId_fkey")
+  @@index([user_id], map: "vouchers_user_id_fkey")
+  @@map("vouchers")
+}
+
+model TransactionDetail {
+  id             Int         @id @default(autoincrement())
+  transaction_id Int
+  ticket_code    String
+  transaction    Transaction @relation(fields: [transaction_id], references: [id])
+
+  @@index([transaction_id], map: "transaction_details_transaction_id_fkey")
+  @@map("transaction_details")
 }
 
 enum PaymentStatus {
@@ -122,31 +157,4 @@ enum PaymentStatus {
   paid
   success
   failed
-}
-
-model Voucher {
-  id           Int           @id @default(autoincrement())
-  name         String
-  discount     Int
-  expired_date DateTime?
-  max_usage    Int
-  usage        Int           @default(0)
-  eventId      Int?
-  event        Event?        @relation(fields: [eventId], references: [id])
-  user_id      Int?
-  user         User?         @relation(fields: [user_id], references: [id])
-  created_at   DateTime      @default(now())
-  updated_at   DateTime      @updatedAt
-  Transaction  Transaction[]
-
-  @@map("vouchers")
-}
-
-model TransactionDetail {
-  id             Int         @id @default(autoincrement())
-  transaction_id Int
-  transaction    Transaction @relation(fields: [transaction_id], references: [id])
-  ticket_code    String
-
-  @@map("transaction_details")
 }

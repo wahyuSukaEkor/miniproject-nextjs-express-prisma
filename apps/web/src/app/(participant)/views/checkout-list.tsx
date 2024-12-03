@@ -19,7 +19,6 @@ const MyChecoutList: React.FunctionComponent<IMyChecoutListProps> = (props) => {
       const config = {
         headers: { Authorization: `Bearer ${Cookies.get("user-tkn")}` },
       };
-      // route ini nanti diganti sesuai event? id pengggna, status
       let url = NEXT_PUBLIC_BASE_API_URL + `/transactions/waiting`;
       const response = await axios.get(url, config);
       setEvent(response.data.result);
