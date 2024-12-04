@@ -14,9 +14,14 @@ export type AdminEventQueryValidated = {
   order_by: string;
 };
 
+
+export type AdminEventQueryValidatedd = {
+  name?: string;
+  sort_by: string;
+  order_by: string;
+};
+
 export type AdminEventTransactionQuery = {
-  page?: string | number;
-  limit?: string | number;
   sort_by?: string;
   order_by?: string;
 };

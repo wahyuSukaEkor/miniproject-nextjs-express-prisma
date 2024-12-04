@@ -20,13 +20,13 @@ export const getAdminEventTransactions = async (
   token: string,
   pagination: Pagination,
 ) => {
-  const { page, limit, sort_by, order_by } = pagination;
+  const {sort_by, order_by } = pagination;
 
   const res = await axios.get<
-    ResponseDataPagination<AdminEventTransactionResponse[]>
+    ResponseWithData<AdminEventTransactionResponse[]>
   >(
     NEXT_PUBLIC_BASE_API_URL +
-      `/admin/events/transactions?page=${page}&limit=${limit}&sort_by=${sort_by}&order_by=${order_by}`,
+      `/admin/events/transactions?&sort_by=${sort_by}&order_by=${order_by}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
@@ -34,11 +34,11 @@ export const getAdminEventTransactions = async (
 };
 
 export const getAdminEvents = async (token: string, pagination: Pagination) => {
-  const { page, limit, sort_by, order_by } = pagination;
+  const {sort_by, order_by } = pagination;
 
-  const res = await axios.get<ResponseDataPagination<AdminEventResponse[]>>(
+  const res = await axios.get<ResponseWithData<AdminEventResponse[]>>(
     NEXT_PUBLIC_BASE_API_URL +
-      `/admin/events?page=${page}&limit=${limit}&sort_by=${sort_by}&order_by=${order_by}`,
+      `/admin/events?&sort_by=${sort_by}&order_by=${order_by}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 

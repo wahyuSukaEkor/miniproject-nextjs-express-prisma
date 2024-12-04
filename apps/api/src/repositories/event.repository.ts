@@ -1,6 +1,6 @@
 import { EventQuery, EventRequest } from '@/types/event.type';
 import prisma from '@/prisma';
-import { AdminEventQueryValidated } from '@/types/admin.type';
+import { AdminEventQueryValidated, AdminEventQueryValidatedd } from '@/types/admin.type';
 export class EventRepository {
   static async getEvents(query: EventQuery) {
     const filter: any = {
@@ -35,6 +35,39 @@ export class EventRepository {
       take: Number(query.limit),
     });
   }
+
+  static async getTheEvents(query: EventQuery) {
+    const filter: any = {
+      price: query.price ? Number(query.price) : undefined,
+      location_id: query.location_id ? Number(query.location_id) : undefined,
+      category_id: query.category_id ? Number(query.category_id) : undefined,
+      event_name: query.event_name ? String(query.event_name) : undefined,
+      start_date: query.start_date
+        ? new Date(query.start_date).toISOString()
+        : undefined,
+      end_date: query.end_date
+        ? new Date(query.end_date).toISOString()
+        : undefined,
+    };
+
+    return await prisma.event.findMany({
+      where: {
+        event_name: { contains: query.event_name },
+        category_id: filter.category_id,
+        location_id: filter.location_id,
+        start_date:
+          filter.start_date || filter.end_date
+            ? {
+                ...(filter.start_date && { gte: filter.start_date }),
+                ...(filter.end_date && { lte: filter.end_date }),
+              }
+            : undefined,
+      },
+      include: { category: true, location: true },
+      orderBy: { created_at: 'desc' },
+    });
+  }
+
 
   static async getTotalEvents(query: EventQuery) {
     const filter: any = {
@@ -168,6 +201,23 @@ export class EventRepository {
           include: { user: true },
           skip: (page - 1) * limit,
           take: limit,
+          orderBy: { [sort_by]: order_by },
+        },
+      },
+    });
+  }
+
+  static async getEventIncludeTransaction(
+    id: number,
+    query: AdminEventQueryValidatedd,
+  ) {
+    const { order_by, sort_by } = query;
+
+    return await prisma.event.findUnique({
+      where: { id, Transaction: { some: { payment_status: 'success' } } },
+      include: {
+        Transaction: {
+          include: { user: true },
           orderBy: { [sort_by]: order_by },
         },
       },
