@@ -1,11 +1,290 @@
-import { AdminService } from '@/services/admin.service';
+import { NextFunction, Request, Response } from 'express';
+import prisma from '@/prisma';
+import { EventRepository } from '@/repositories/event.repository';
+import { TransactionRepository } from '@/repositories/transaction.repository';
+import { UserRepository } from '@/repositories/user.repository';
 import {
   AdminEventQuery,
   AdminEventTransactionQuery,
   FilterDate,
 } from '@/types/admin.type';
 import { TransactionStatus } from '@/types/transaction.type';
-import { NextFunction, Request, Response } from 'express';
+import { ErrorResponse } from '@/utils/error';
+import { decrementDate, incrementDate } from '@/utils/generatedate';
+import {
+  responseData,
+  responseWithData,
+  responseWithoutData,
+} from '@/utils/response';
+import { AdminValidation } from '@/validations/admin.validaton';
+import { EventValidation } from '@/validations/event.validation';
+import { TransactionValidation } from '@/validations/transaction.validation';
+import { Validation } from '@/validations/validation';
+
+export class AdminService {
+  static async getAdminEvents(id: number, query: AdminEventQuery) {
+    const adminEventQuery = Validation.validate(
+      AdminValidation.EVENT_QUERY,
+      query,
+    );
+
+    const user = await UserRepository.getAdminEvents(id, adminEventQuery);
+
+    const allEvents = await UserRepository.countAdminEvents(
+      id,
+      adminEventQuery,
+    );
+
+    const events = user?.Event.map(
+      ({ user_id, category_id, location_id, ...rest }) => rest,
+    );
+
+    return responseData(
+      200,
+      'Get admin events successfully',
+      events!,
+    );
+  }
+
+  static async getAdminEventTransactions(
+    id: number,
+    query: AdminEventTransactionQuery,
+  ) {
+    const eventQuery = Validation.validate(
+      AdminValidation.EVENT_TRANSACTION_QUERY,
+      query,
+    );
+
+    const eventTransactions = await TransactionRepository.getEventTransactions(
+      id,
+      eventQuery,
+    );
+
+    const allTransactions =
+      await TransactionRepository.countEventTransactions(id);
+
+    const transactions = eventTransactions?.map(
+      ({ user_id, eventId, voucer_id, ...rest }) => rest,
+    );
+
+    return responseData(
+      200,
+      'Get admin event transactions successfully',
+      transactions,
+    );
+  }
+
+  static async getAdminTotalSales(id: number, query: FilterDate) {
+    const { start_date: startDate, end_date: endDate } = Validation.validate(
+      AdminValidation.FILTER_QUERY,
+      query,
+    );
+
+    // handle date
+    const currentDate = new Date();
+    let lte = incrementDate(currentDate, 1);
+    if (endDate) lte = incrementDate(new Date(endDate), 1);
+
+    // 7 days ago
+    const past7Days = decrementDate(currentDate, 7);
+
+    const transactions =
+      await TransactionRepository.getTotalSalesGroupByUpdatedAt(id, {
+        gte: startDate ?? past7Days,
+        lte,
+      });
+
+    return responseWithData(
+      200,
+      true,
+      'Get admin total sales successfully',
+      transactions,
+    );
+  }
+
+  static async getAdminTransactionStatus(id: number, query: FilterDate) {
+    const { start_date: startDate, end_date: endDate } = Validation.validate(
+      AdminValidation.FILTER_QUERY,
+      query,
+    );
+
+    // handle date
+    const currentDate = new Date();
+    let lte = incrementDate(currentDate, 1);
+    if (endDate) lte = incrementDate(new Date(endDate), 1);
+
+    // 7 days ago
+    const past7Days = decrementDate(currentDate, 7);
+
+    const statuses =
+      await TransactionRepository.getTransactionStatusByUpdatedAt(id, {
+        gte: startDate ?? past7Days,
+        lte,
+      });
+
+    return responseWithData(
+      200,
+      true,
+      'Get admin transaction status',
+      statuses,
+    );
+  }
+
+  static async updateAdminTransactionStatus(
+    id: number,
+    transaction_id: string,
+    request: TransactionStatus,
+  ) {
+    const newTransactionId = Validation.validate(
+      TransactionValidation.TRANSACTION_ID,
+      transaction_id,
+    );
+    const { status } = Validation.validate(
+      AdminValidation.UPDATE_TRANSACTION_STATUS,
+      request,
+    );
+
+    const transaction = await TransactionRepository.getTransactionHasUser(
+      Number(newTransactionId),
+    );
+
+    if (!transaction) throw new ErrorResponse(404, 'Transaction not found!');
+
+    if (transaction.event.user.id !== id) {
+      throw new ErrorResponse(401, 'This event is not yours!');
+    }
+
+    await TransactionRepository.updateTransactionStatus(
+      Number(newTransactionId),
+      status,
+    );
+
+    return responseWithoutData(
+      200,
+      true,
+      'Update transaction status successfully',
+    );
+  }
+
+  static async getAdminEventParticipations(
+    id: number,
+    eventId: string,
+    query: AdminEventQuery,
+  ) {
+    const newEventId = Validation.validate(EventValidation.EVENT_ID, eventId);
+    const adminEventQuery = Validation.validate(
+      AdminValidation.EVENT_QUERY,
+      query,
+    );
+
+    const event = await EventRepository.getEventIncludeTransaction(
+      Number(newEventId),
+      {
+        sort_by: adminEventQuery.sort_by || 'created_at',
+        order_by: adminEventQuery.order_by || 'desc',
+      },
+    );
+
+
+    if (!event) {
+      return responseWithData(200, true, "Event don't have participations", []);
+    }
+
+    if (event.user_id !== id) {
+      throw new ErrorResponse(401, 'This event is not yours!');
+    }
+
+    const transactions = event.Transaction.map((transaction) => {
+      return {
+        transaction_id: transaction.id,
+        username: transaction.user.username,
+        email: transaction.user.email,
+        quantity: transaction.quantity,
+        payment_status: transaction.payment_status,
+        created_at: transaction.created_at,
+      };
+    });
+
+    const allEventTransactions = await EventRepository.countEventTransactions(
+      Number(eventId),
+    );
+
+    return responseData(
+      200,
+      'Get admin event participations successfully',
+      transactions,
+    );
+  }
+
+  static async getTransaction(id: number, transaction_id: string) {
+    const newTransactionId = Validation.validate(
+      TransactionValidation.TRANSACTION_ID,
+      transaction_id,
+    );
+
+    const transaction = await TransactionRepository.getTransactionHasUser(
+      Number(newTransactionId),
+    );
+
+    if (!transaction) throw new ErrorResponse(404, 'Transaction not found!');
+
+    if (transaction.event.user.id !== id) {
+      throw new ErrorResponse(401, 'This transaction is not yours!');
+    }
+
+    const { event, ...newTransaction } = transaction;
+    return responseWithData(
+      200,
+      true,
+      'Success get transaction',
+      newTransaction,
+    );
+  }
+
+  static async getTransactionDetails(id: number, transaction_id: string) {
+    const newTransactionId = Validation.validate(
+      TransactionValidation.TRANSACTION_ID,
+      transaction_id,
+    );
+
+    const transaction = await prisma.transaction.findUnique({
+      where: { id: Number(newTransactionId) },
+      include: { TransactionDetail: true, event: { include: { user: true } } },
+    });
+
+    if (!transaction) throw new ErrorResponse(404, 'Transaction not found!');
+
+    if (transaction.event.user.id !== id) {
+      throw new ErrorResponse(401, 'This transaction is not yours!');
+    }
+
+    const { TransactionDetail } = transaction;
+    return responseWithData(
+      200,
+      true,
+      'Success get transaction details',
+      TransactionDetail,
+    );
+  }
+
+  static async getEvent(id: number, eventId: string) {
+    const newEventId = Validation.validate(EventValidation.EVENT_ID, eventId);
+
+    const event = await EventRepository.getEventIncludeCategoryLocation(
+      Number(newEventId),
+    );
+
+    if (!event) throw new ErrorResponse(404, 'Event not found!');
+
+    if (event.user_id !== id) {
+      throw new ErrorResponse(401, 'This event is not yours!');
+    }
+
+    return responseWithData(200, true, 'Success get event', event);
+  }
+}
+
+
 
 export class AdminController {
   public async getAdminEvents(req: Request, res: Response, next: NextFunction) {
@@ -28,7 +307,6 @@ export class AdminController {
     try {
       const id = res.locals.decoded.id as number;
       const query = req.query as AdminEventTransactionQuery;
-
       const response = await AdminService.getAdminEventTransactions(id, query);
       return res.status(200).send(response);
     } catch (error) {
@@ -94,6 +372,7 @@ export class AdminController {
       const id = res.locals.decoded.id as number;
       const eventId = req.params.eventId;
       const query = req.query as AdminEventQuery;
+
 
       const response = await AdminService.getAdminEventParticipations(
         id,

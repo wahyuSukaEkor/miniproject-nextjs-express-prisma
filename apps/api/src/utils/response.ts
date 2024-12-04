@@ -41,3 +41,16 @@ export const responseDataWithPagination = (
     total
   };
 };
+
+export const responseData = (
+  status: number,
+  message: string,
+  data: object | Array<any>
+) => {
+  return {
+    rc: status,
+    success: true,
+    message,
+    result: data,
+  };
+};

@@ -71,12 +71,12 @@ export class TransactionService {
         throw new ErrorResponse(400, 'Voucher has expired!');
       }
 
-      if (voucher.usage >= voucher.maxUsage) {
+      if (voucher.usage >= voucher.max_usage) {
         throw new ErrorResponse(400, 'Voucher has reached its limit!');
       }
     }
 
-    // check redeemable points
+
     const user = await UserRepository.findUserByIdIncludePoint(id);
     if (point_used) {
       if (!user?.point) throw new ErrorResponse(400, 'User has no points!');
